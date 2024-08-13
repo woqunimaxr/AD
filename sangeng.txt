@@ -1,0 +1,10 @@
+#!name=三更视频
+#!desc= 三更视频 会员+漫画小说解锁
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1021.png
+
+[Script]
+# >18+ 三更视频 会员+漫画小说解锁
+http-request ^https?:\/\/api.*.shop\/api\/(search|mov\/(detail|progress|index)|novel\/(chapter|play)|comic\/chapter|clip\/index|comic\/play|user\/index) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/sgtk.js, timeout=60, tag=sgtk
+
+[MITM]
+hostname = api.*.shop

@@ -1,0 +1,20 @@
+# NAME: 余半自用规则
+# AUTHOR: 余半
+# REPO: https://www.baidu.com
+# UPDATED: 2024-8-7 16:17:23
+DOMAIN-SUFFIX,zijieapi.com
+DOMAIN-SUFFIX,adukwai.com
+DOMAIN-SUFFIX,ugdtimg.com
+DOMAIN-SUFFIX,qzs.gdtimg.com
+DOMAIN-SUFFIX,1rtb.net
+DOMAIN-SUFFIX,1rtb.com
+DOMAIN-SUFFIX,im-x.jd.com
+DOMAIN-SUFFIX,get.sogou.com
+DOMAIN-SUFFIX,mores.toponad.com
+DOMAIN-SUFFIX,feed-image.baidu.com
+DOMAIN-SUFFIX,s3plus.meituan.net
+DOMAIN-SUFFIX,pglstatp-toutiao.com
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com
+DOMAIN-SUFFIX,juan-esee.cn-qingdao.log.aliyuncs.com
+DOMAIN-SUFFIX, open.e.kuaishou.com

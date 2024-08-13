@@ -1,0 +1,15 @@
+#!name=7semao
+#!desc=7semao
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1085.png
+
+[Rewrite]
+^https?://jiekou\.antciti\.cn/api/home/my_ad - reject-dict
+
+[Script]
+# >18+七色猫 视频、小说、漫画、去广告、凤楼、电台、直播
+http-response ^https?:\/\/jiekou.antciti.cn\/api\/(Login\/login|login\/mobile_login|index\/loufeng_info|home\/video_info|user\/info) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/7semao.js, requires-body=true, timeout=60, tag=7semao
+
+http-response ^https?:\/\/jiekou.antciti.cn\/api\/(index|home|ent)\/(cate_list|zuire|zuixin|index|loufeng|new_zuanti|cate_list|novel|comic|audio_no) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/7semaoad.js, requires-body=true, timeout=60, tag=7semaoad
+
+[MITM]
+hostname = jiekou.antciti.cn

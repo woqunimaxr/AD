@@ -1,0 +1,38 @@
+#!name = 京东系列去广告
+#!desc = 京东系列去广告
+#!openUrl = 
+#!author = 余半
+#!keyword = 去广告, 余半
+#!homepage = www.baidu.com
+#!icon = https://zhengxin-pub.cdn.bcebos.com/mark/f7e9f17c32b16c89b8ddff4a79646c76.jpg
+#!date = 2024-08-03 02:24:31
+
+[Rule]
+
+[Rewrite]
+
+# > 京东读书
+^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/channel\/module\/opens url reject-200
+^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/popup url reject-200
+# > 京东[invalid]
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=(start|queryMaterialAdverts) url reject-200
+^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ url reject-200
+# > 京东金融
+^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/aladdin\/(new)?na\/m\/getLoadingPicture url reject-200
+# > 京东云
+^https:\/\/router-app-api\.jdcloud\.com\/v\d\/board\/routerAppSplash url reject-200
+
+
+[Script]
+
+# > 京东快速版
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=lite_advertising url response-body jdLiteAdvertisingVO response-body ddgksf2013
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=lite_SmartPush url response-body pushData response-body ddgksf2013
+# > 京喜
+^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/startup.js
+# > 京东[invalid]
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=(hotWords|hotSearchTerms) url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/jd_json.js
+
+
+[Mitm]
+hostname = jdread-api.jd.com, ms.jr.jd.com, bdsp-x.jd.com, dsp-x.jd.com, api.m.jd.com

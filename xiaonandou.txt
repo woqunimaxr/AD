@@ -1,0 +1,13 @@
+#!name=xnd
+#!desc=xnd
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1077.png
+
+[Rewrite]
+^https?://papi\.xiaonandou\.com.cn/moria/assist/assistVipCheck - reject-dict
+
+[Script]
+# >小南斗
+http-response ^https?:\/\/papi.xiaonandou.com.cn script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/xnd.js, requires-body=true, timeout=60, tag=xnd
+
+[MITM]
+hostname = papi.xiaonandou.com.cn

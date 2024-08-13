@@ -1,0 +1,10 @@
+#!name=yyzjz
+#!desc=yyzjz
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1055.png
+
+[Script]
+# > 风云学习宝-中小学试卷题库精选 试卷宝ai写作 （永久会员）
+http-response ^https?:\/\/fufei.cfcpe.com.cn\/api\/client\/info.*$ script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/yyzjz.js, requires-body=true, timeout=60, tag=yyzjz
+
+[MITM]
+hostname = fufei.cfcpe.com.cn

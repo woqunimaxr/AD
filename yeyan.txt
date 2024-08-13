@@ -1,0 +1,15 @@
+#!name=yeyan
+#!desc=夜宴
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1017.png
+
+[Rewrite]
+^https?:\/\/web\w+.yeyan\w+.xyz\/api/comment/gg - reject-dict
+
+[Script]
+# >18+夜艳
+http-response ^https?:\/\/web\w+.yeyan\w+.xyz\/api\/(user\/personal|community\/edit|adv\/) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/yeyan.js, requires-body=true, timeout=60, tag=yeyan
+
+http-request ^https?:\/\/web\w+.yeyan\w+.xyz\/api\/community\/xq_community script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/yytk.js, timeout=60, tag=yytk
+
+[MITM]
+hostname = *yeyan*

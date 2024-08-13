@@ -1,0 +1,15 @@
+#!name=jtsp
+#!desc=jtsp
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1010.png
+
+[Rewrite]
+^https?:\/\/.+\/shorter\/resource\/getAdInfoBySpaceId\?ad - reject-dict
+
+[Script]
+# > 加藤视频vip解锁,付费视频解锁,下载,会员线路,去广告++
+http-response ^https?:\/\/.+\/shorter\/(video\/longvideoinfo|resource\/adInfoPageList\?adSpaceId|user\/getUser|resource\/getWindowNotice|tabIconConfigView|user\/getVipPvg|video\/home\/list|video\/search).*$ script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/jtsp.js, requires-body=true, timeout=60, tag=jtsp
+
+http-request ^https?:\/\/.+\/shorter\/(anime\/tbookchapter0\/info\?bookId|video\/longvideoinfo) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/jttk.js, timeout=60, tag=jttk
+
+[MITM]
+hostname = zqlhcn.kl9117.xyz, rylzit.wqws5z.xyz, riwnkx.sw05uv.xyz, bsxqtd.xk8q7w.xyz, grvgdq.81fbg2.xyz, pmmqls.gregdoro.com, 103.85.254.233, omfnmh.x2b3w6.xyz, rdxijq.vo9ugl.xyz, bpitbu.ouxf9g.live, tjactb.xk2nsy.live, us6tp7.dkr9cv.live, qsukip.9jts57.live, wkqyx6.qdokqj.live, fqohbx.bkljtx.live, zihjyv.jajrc1.live, y7uyqg.hl8dbl.live, qrdure.youngnoble.cn, kpoe2e.x8w7t3.live, *jttv*, fceyeg.johjxe.com, *.vo9ugl.xyz, vcryyw.uc86fy.xyz, xospby.mldo9k.xyz, roa6fi.lyr6if.live
