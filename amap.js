@@ -96,11 +96,11 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
         i?.dataKey === "LoginCard" // 登陆卡片
     );
   }
-  //if (obj?.data?.mapBizList?.length > 0) {
-  //  obj.data.mapBizList = obj.data.mapBizList.filter(
-  //    (i) => i?.dataKey === "FindCarVirtualCard" // 显示关联车辆位置
-  //  );
-  //}
+  if (obj?.data?.mapBizList?.length > 0) {
+    obj.data.mapBizList = obj.data.mapBizList.filter(
+      (i) => i?.dataKey === "FindCarVirtualCard" // 显示关联车辆位置
+    );
+  }
 } else if (url.includes("/perception/drive/routeInfo")) {
   // 导航详情页
   if (obj?.data?.tbt?.event?.length > 0) {
