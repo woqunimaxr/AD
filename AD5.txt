@@ -15,7 +15,7 @@ DOMAIN-SUFFIX,im-x.jd.com
 DOMAIN-SUFFIX,get.sogou.com
 DOMAIN-SUFFIX,mores.toponad.com
 DOMAIN-SUFFIX,feed-image.baidu.com
-DOMAIN-SUFFIX,s3plus.meituan.net
+#DOMAIN-SUFFIX,s3plus.meituan.net
 DOMAIN-SUFFIX,pglstatp-toutiao.com
 DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com
 DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com
