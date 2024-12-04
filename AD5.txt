@@ -30462,7 +30462,7 @@ DOMAIN-SUFFIX,et-code.ru
 DOMAIN-SUFFIX,et-gv.fr
 DOMAIN-SUFFIX,marketing.et.support
 DOMAIN-SUFFIX,et363.com
-#DOMAIN-SUFFIX,etahub.com
+DOMAIN-SUFFIX,etahub.com
 DOMAIN-SUFFIX,tk.etam.com
 DOMAIN-SUFFIX,etapescaisse.com
 DOMAIN-SUFFIX,etargetnet.com
