@@ -1,0 +1,140 @@
+#default config
+#Date: 2022.06.01
+#Author: Loon
+
+[General]
+udp-fallback-mode = DIRECT
+dns-reject-mode = NoAnswer
+disconnect-on-policy-change = false
+ipv6-vif = auto
+ip-mode = dual
+skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.local,e.crashlynatics.com
+geoip-url = https://geodata.kelee.one/Country-Masaiki.mmdb
+resource-parser = https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
+sni-sniffing = true
+ipv6 = false
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
+dns-server = system,119.29.29.29,114.114.114.114,223.5.5.5
+allow-wifi-access = false
+wifi-access-http-port = 7222
+wifi-access-socks5-port = 7221
+proxy-test-url = http://detectportal.firefox.com/success.txt
+internet-test-url = http://wifi.vivo.com.cn/generate_204
+test-timeout = 3
+interface-mode = auto
+
+[Proxy]
+
+[Remote Proxy]
+94caa4b65cc7ecaa = https://api-hy.02000.net/api/v1/client/subscribe?token=e03536c22b71af9226700bb97ce0fa27,udp=true,fast-open=default,vmess-aead=true,skip-cert-verify=true,enabled=true,flexible-sni=true
+风筝云梯 = https://www.fzyt1.com/api/v1/client/subscribe?token=ac6f6974cfae36cb2b05224e180cffb9,parser-enabled = true,udp=true,fast-open=false,vmess-aead=true,skip-cert-verify=default,enabled=false,flexible-sni=true
+余半自用 = https://raw.githubusercontent.com/woqunimaxr/AD/refs/heads/main/jiedian.txt,parser-enabled = true,udp=true,fast-open=default,vmess-aead=true,skip-cert-verify=true,enabled=false,flexible-sni=true
+徐胖虎免费节点（速度还行） = https://pastebin.com/raw/9nddQckK,parser-enabled = true,udp=true,fast-open=default,vmess-aead=true,skip-cert-verify=true,enabled=false,flexible-sni=true
+[Proxy Chain]
+
+[Proxy Group]
+科学上网 = select,地区优选-延迟,香港节点,台湾节点,新加坡节点,日本节点,韩国节点,美国节点,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
+地区优选-延迟 = url-test,地区优选,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/LovedGM/Quantumult-X-TuBiao/main/zishi-cs/zs3.png
+香港节点 = url-test,HK_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+台湾节点 = url-test,TW_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+新加坡节点 = url-test,SG_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+日本节点 = url-test,JP_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+韩国节点 = url-test,KR_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
+美国节点 = url-test,US_Filter,url = http://detectportal.firefox.com/success.txt,interval = 600,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+
+[Remote Filter]
+地区优选 = NameRegex, FilterKey = "(?=.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇰🇷|🇺🇸|港|HK|(?i)Hong|台|TW|(?i)Taiwan|日本|JP|(?i)Japan|新加坡|狮城|SG|(?i)Singapore|KR|Korea|KOR|首尔|韩|韓|(?i)Korea|美国|美國|(\bUS\b/i)|洛杉矶|西雅图|(?i)States|American))^((?!(邀请|NeteaseMusic|网易云|Netease|免费|白嫖|官网|剩余|套餐|注册|重置|刷新|测试|付费|网址|群|帐户|体验|限速|试用|XiaoMao)).)*$"
+ALL_Filter = NameRegex, FilterKey = ".*"
+HK_Filter = NameRegex, FilterKey = "(?i)(港|HK|Hong)"
+TW_Filter = NameRegex, FilterKey = "(?i)(台|TW|Tai)"
+JP_Filter = NameRegex, FilterKey = "(?i)(日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan)"
+KR_Filter = NameRegex, FilterKey = "(?i)(KR|Korea|KOR|首尔|韩|韓)"
+US_Filter = NameRegex, FilterKey = "(?i)(美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)"
+SG_Filter = NameRegex, FilterKey = "(?i)(新加坡|坡|狮城|SG|Singapore)"
+
+[Rule]
+DOMAIN,www.fzyt1.com,DIRECT
+DOMAIN,emby.nezhasu.com,DIRECT
+DOMAIN,api.pjq6he.com,DIRECT
+DOMAIN,fdsfdsfgfdgfdgfdg.wc1.tech,DIRECT
+DOMAIN-SUFFIX,api.f38khx.com,DIRECT
+DOMAIN-SUFFIX,yg10.app,DIRECT
+#Telegram
+FINAL,科学上网
+
+[Remote Rule]
+https://whatshub.top/rule/TikTok.list, policy=美国节点, tag=TikTok.list, enabled=false
+https://whatshub.top/rule/Telegram.list, policy=新加坡节点, tag=Telegram.list, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/main/AD5.txt, policy=REJECT, tag=自用AD, enabled=true
+https://raw.githubusercontent.com/woqunimaxr/AD/main/GEOIP.txt, policy=科学上网, tag=GEOIP_其他国家, enabled=false
+https://whatshub.top/rule/ChinaMax.list, policy=DIRECT, tag=国内ip/网站, enabled=true
+https://whatshub.top/rule/WeChat.list, policy=DIRECT, tag=微信直连, enabled=true
+https://raw.githubusercontent.com/woqunimaxr/AD/main/apple.txt, policy=DIRECT, tag=苹果服务, enabled=true
+https://raw.githubusercontent.com/woqunimaxr/AD/main/GEOIPCN.txt, policy=DIRECT, tag=GEOIP_中国, enabled=true
+
+[Rewrite]
+
+[Script]
+
+[Remote Script]
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/tiebaqiandao.txt, tag=贴吧签到, enabled=true
+https://raw.githubusercontent.com/woqunimaxr/AD/refs/heads/jiaoben/wuaiqiandao.txt, tag=吾爱签到, enabled=false
+[Plugin]
+https://kelee.one/Tool/Loon/Plugin/JD_Price.plugin, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/Yu9191/Rewrite/refs/heads/main/xt.js/_end_/xt.plugin?type=qx-rewrite&target=loon-plugin&del=true&jqEnabled=true, tag=炫图vip, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/iosDG001/_/refs/heads/main/XTAI.js/_end_/XTAI.plugin?type=qx-rewrite&target=loon-plugin&del=true&jqEnabled=true, tag=炫图ai, enabled=false
+http://script.hub/file/_start_/https://raw.githubusercontent.com/chxm1023/Rewrite/main/Reheji.js/_end_/Reheji.plugin?type=qx-rewrite&target=loon-plugin&del=true&jqEnabled=true, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/Yu9191/Rewrite/refs/heads/main/One.js/_end_/One.plugin?type=qx-rewrite&target=loon-plugin&del=true, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/WeiGiegie/666/main/QDVIP.js/_end_/QDVIP.plugin?type=qx-rewrite&target=loon-plugin&del=true, enabled=false
+http://script.hub/file/_start_/https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/iScreenk.js/_end_/iScreenk.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=iscreen小组件vip, enabled=true
+https://kelee.one/Tool/Loon/Plugin/ColorfulClouds_remove_ads.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/Soul_remove_ads.plugin, enabled=false
+http://script.hub/file/_start_/https://raw.githubusercontent.com/WeiGiegie/666/main/hhmh.js/_end_/hhmh.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=嘿嘿漫画VIP, enabled=false
+https://kelee.one/Tool/Loon/Plugin/YY_Voice_remove_ads.plugin, enabled=true
+https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/NeteaseCloudMusic/netease.plugin, enabled=false
+hlw.plugin, tag=黑料网, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/chxm1023/Rewrite/main/kuake.js/_end_/kuake.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=夸克svip, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/WeiGiegie/666/main/mhy.js/_end_/mhy.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=漫画园vip, enabled=false
+https://kelee.one/Tool/Loon/Plugin/RedPaper_remove_ads.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/Bilibili_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/QiDian_remove_ads.plugin, enabled=true
+http://script.hub/file/_start_/https://gist.githubusercontent.com/ddgksf2013/f4752e632fd3375ea2811985c5b635dc/raw/alicloud.js/_end_/alicloud.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=阿里云盘vip, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/yqc007/QuantumultX/master/Block100FVIPCrack.js/_end_/Block100FVIPCrack.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=拦截100VIPCrack, enabled=false
+http://script.hub/file/_start_/https://raw.githubusercontent.com/chxm1023/Rewrite/main/mtxx.js/_end_/mtxx.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=美图秀秀粉砖vip, enabled=true
+https://kelee.one/Tool/Loon/Plugin/WexinMiniPrograms_Remove_ads.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/Weixin_Official_Accounts_remove_ads.plugin, enabled=false
+http://script.hub/file/_start_/https://raw.githubusercontent.com/afengye/QX/main/syb.js/_end_/syb.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=水印宝vip, enabled=true
+https://kelee.one/Tool/Loon/Plugin/DragonRead_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/SevenCat_remove_ads.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/Tieba_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/JD_remove_ads.plugin, enabled=true
+http://script.hub/file/_start_/https://gist.githubusercontent.com/ddgksf2013/0f76e952f0c4a2579932f45a209b40c3/raw/kuwomusic.vip.js/_end_/kuwomusic.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=酷我音乐会员, enabled=false
+https://kelee.one/Tool/Loon/Plugin/NeteaseCloudMusic_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/VideoGo_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Amap_remove_ads.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/Cainiao_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/TikTok_redirect.plugin, policy=美国节点, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/mangguo.txt, tag=芒果TV  会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/xiaonandou.txt, tag=小南斗会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/aliyun.txt, tag=阿里云会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/wangyiyun.txt, tag=网易云会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/qingtu.txt, tag=轻图会员, enabled=true
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/qisemao.txt, tag=七色猫会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/jiateng.txt, tag=加藤视频会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/yeyan.txt, tag=夜艳会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/sangeng.txt, tag=三更视频会员, enabled=false
+https://raw.githubusercontent.com/woqunimaxr/AD/jiaoben/yiyan.txt, tag=易颜证件照会员, enabled=false
+https://kelee.one/Tool/Loon/Plugin/QQ_Redirect.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Weixin_external_links_unlock.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Node_detection_tool.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Switch_github_mirror.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Block_HTTPDNS.plugin, enabled=false
+https://kelee.one/Tool/Loon/Plugin/BoxJs.plugin, policy=科学上网, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Sub-Store.plugin, policy=科学上网, enabled=true
+https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/refs/heads/main/modules/script-hub.loon.plugin, enabled=true
+
+[Mitm]
+hostname = apple.com
+ca-p12 = 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
+ca-passphrase = M315B8B4
+skip-server-cert-verify = false
