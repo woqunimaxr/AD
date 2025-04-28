@@ -3,7 +3,7 @@
 #URL=https://www.baidu.com
 #TOTAL_LINES=99999
 payload:
-    - DOMAIN-SUFFIX,anythinktech.com
+    #- DOMAIN-SUFFIX,anythinktech.com
     - DOMAIN-SUFFIX,adx-bj.anythinktech.com
     - DOMAIN-SUFFIX,lf-cdn-tos.bytescm.com
     - DOMAIN-SUFFIX,update.e-seenet.com
