@@ -1,0 +1,11 @@
+#!name=解决github速率限制返回429问题
+#!desc=解决github速率限制返回429问题
+#!icon=https://img0.baidu.com/it/u=2299561093,1390915375&fm=253&fmt=auto&app=138&f=JPEG?w=714&h=500
+
+[Rewrite]
+# 解决github速率限制返回429问题
+^https:\/\/(raw|gist)\.githubusercontent\.com\/ header-replace Accept-Language en-us
+^https:\/\/github\.com\/ header-replace Accept-Language en-us
+
+[Mitm]
+hostname = raw.githubusercontent.com,gist.githubusercontent.com,github.com
