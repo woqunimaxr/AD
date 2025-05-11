@@ -1,3 +1,45 @@
-trojan://39803af1-48e9-4dee-8aa3-825f63021974@183.2.150.98:27102?peer=q08m.vgraxiw73s.hasyaf.cn#🇭🇰1
-trojan://562b3cb3-0451-4717-8992-8cf37f5cad85@183.240.116.224:27102?peer=q08m.vgraxiw73s.hasyaf.cn#🇭🇰2
-trojan://97be1c84-9409-439a-b69b-8dcb182f7a37@163.177.47.36:27101?peer=q08m.vgraxiw73s.hasyaf.cn#🇭🇰3
+trojan=blessed-osprey.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Montreal Pro 4
+
+trojan=civil-ferret.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Virginia Pro 22
+
+trojan=polished-polliwog.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Ohio Pro 12
+
+trojan=infinite-goshawk.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Singapore Pro 1
+
+trojan=ruling-treefrog.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=New York Pro 1
+
+trojan=healthy-parrot.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Riga 2
+
+trojan=healthy-parrot.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Riga Pro 2
+
+trojan=eternal-terrier.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Los Angeles 3
+
+trojan=eternal-terrier.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Los Angeles Pro 3
+
+trojan=caring-teal.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Riyadh Pro 1
+
+trojan=ethical-troll.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=London 2
+
+trojan=ethical-troll.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=London Pro 2
+
+trojan=apt-dassie.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Warsaw 6
+
+trojan=apt-dassie.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Warsaw Pro 6
+
+trojan=many-muskrat.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Miami 6
+
+trojan=many-muskrat.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Miami Pro 6
+
+trojan=prepared-sloth.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Manila Pro 1
+
+trojan=solid-dane.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=London 3
+
+trojan=solid-dane.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=London Pro 3
+
+trojan=worthy-cattle.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Warsaw 5
+
+trojan=adjusted-chamois.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Paris Pro 7
+
+trojan=equal-kite.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=London Pro 5
+
+trojan=elegant-sunbeam.marlin387.pics:443, password=3841194681870589952, over-tls=true, tls-verification=false, fast-open=false, udp-relay=false, tag=Frankfurt Pro 2
