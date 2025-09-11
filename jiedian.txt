@@ -1,11 +1,1 @@
-trojan://ede786e7a4306f583de3f0377e03996d@47.242.225.242:443?allowInsecure=1&peer=hezijiasuqi.com,#香港专线2
-trojan://ede786e7a4306f583de3f0377e03996d@47.83.121.99:443?allowInsecure=1&peer=hezijiasuqi.com,#香港专线4
-trojan://ede786e7a4306f583de3f0377e03996d@47.86.9.253:443?allowInsecure=1&peer=hezijiasuqi.com,#香港专线3
-trojan://ede786e7a4306f583de3f0377e03996d@8.210.125.207:443?allowInsecure=1&peer=hezijiasuqi.com,#香港专线1
-trojan://ede786e7a4306f583de3f0377e03996d@125.227.238.151:443?allowInsecure=1&peer=hezijiasuqi.com,#台湾线路2
-trojan://ede786e7a4306f583de3f0377e03996d@61.216.76.114:443?allowInsecure=1&peer=hezijiasuqi.com,#台湾线路1
-trojan://ede786e7a4306f583de3f0377e03996d@218.232.76.185:443?allowInsecure=1&peer=hezijiasuqi.com,#韩国线路2
-trojan://ede786e7a4306f583de3f0377e03996d@27.102.118.145:443?allowInsecure=1&peer=hezijiasuqi.com,#韩国线路1
-trojan://ede786e7a4306f583de3f0377e03996d@133.242.157.140:443?allowInsecure=1&peer=hezijiasuqi.com,#日本专线3
-trojan://ede786e7a4306f583de3f0377e03996d@153.121.37.176:443?allowInsecure=1&peer=hezijiasuqi.com,#日本专线2
-trojan://ede786e7a4306f583de3f0377e03996d@49.212.170.40:443?allowInsecure=1&peer=hezijiasuqi.com,#日本专线1
+vmess://ewoidiI6ICIyIiwKInBzIjogIm5hbWVfMTQ4LjEzNS42LjExNiIsCiJhZGQiOiAiMTQ4LjEzNS42LjExNiIsCiJwb3J0IjogIjMxNTM1IiwKImlkIjogIjgwMzZkN2Q4LTU2NzEtNGJkNC1hZmNmLTk2YmZkYTMyZDE1ZCIsCiJhaWQiOiAiMCIsCiJuZXQiOiAia2NwIiwKInR5cGUiOiAiZHRscyIsCiJob3N0IjogIiIsCiJwYXRoIjogIiIsCiJ0bHMiOiAiIgp9Cg==
