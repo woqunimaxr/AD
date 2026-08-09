@@ -17,7 +17,7 @@ soul = switch,true,tag=Soul 去开屏,desc=开/去除广告，关/不拦截
 #   新增 App 时，把对应域名追加到 hostname 列表
 # ============================================================
 [Mitm]
-hostname = api.ys7.com, ssp.soulapp.cn
+hostname = api.ys7.com, ssp.soulapp.cn,47.99.42.29,47.97.215.55,120.27.235.201
 
 # ============================================================
 # [URL Rewrite] 命中各 App 开屏广告接口时返回空/断开
