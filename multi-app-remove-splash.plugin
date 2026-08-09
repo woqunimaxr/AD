@@ -1,5 +1,5 @@
 #!name=多App去开屏广告
-#!desc=仅移除指定 App 的开屏广告。萤石云视频 / Soul / 番茄小说 各自独立开关(默认开启)；网易云音乐用连接层拦截(开屏素材域名证书锁定，无法用开关，始终生效)。需开启 MitM 并信任证书。关闭某 App 开关即恢复其开屏广告；后续新增 App 直接按区块追加 [Argument]+[URL Rewrite] 即可。
+#!desc=仅移除指定 App 的开屏广告。萤石云视频 / Soul 各自独立开关(默认开启)。需开启 MitM 并信任证书。关闭某 App 开关即恢复其开屏广告；后续新增 App 直接按区块追加 [Argument]+[URL Rewrite] 即可。
 #!openUrl=https://clashios.app/stoverride/lodepuly_vpn_tool/
 
 # ============================================================
@@ -11,27 +11,13 @@
 [Argument]
 ezviz = switch,true,tag=萤石云视频 去开屏,desc=开/去除广告，关/不拦截
 soul = switch,true,tag=Soul 去开屏,desc=开/去除广告，关/不拦截
-fanqie = switch,true,tag=番茄小说 去开屏,desc=开/去除广告，关/不拦截
-
-# ============================================================
-# [Rule] 网易云音乐开屏广告：连接层拦截（始终生效，无法用开关控制）
-#   网易云开屏素材域名(music.126.net / nosdn.127.net)对 MitM 做了证书锁定，
-#   URL Rewrite 方式拦截不到，故改用 DOMAIN REJECT（无需 MitM，TCP 层掐断）。
-#   对齐最新社区插件(Yu9191)完整开屏域名清单；不影响信息流/banner 等其他广告。
-#   因连接层规则不支持 enable= 开关，网易云未列入上面的 [Argument] 面板。
-# ============================================================
-[Rule]
-DOMAIN, iadmat.nosdn.127.net, REJECT
-DOMAIN, iadmatapk.nosdn.127.net, REJECT
-DOMAIN, iadmusicmat.music.126.net, REJECT
-DOMAIN, iadmusicmatvideo.music.126.net, REJECT
 
 # ============================================================
 # [Mitm] 对所有开屏广告接口所在域名做解密（URL Rewrite 依赖此项）
 #   新增 App 时，把对应域名追加到 hostname 列表
 # ============================================================
 [Mitm]
-hostname = api.ys7.com, ssp.soulapp.cn, sf3-be-pack.pglstatp-toutiao.com, sf3-fe-tos.pglstatp-toutiao.com, lf*-cdn-tos.bytescm.com
+hostname = api.ys7.com, ssp.soulapp.cn
 
 # ============================================================
 # [URL Rewrite] 命中各 App 开屏广告接口时返回空/断开
@@ -43,10 +29,3 @@ hostname = api.ys7.com, ssp.soulapp.cn, sf3-be-pack.pglstatp-toutiao.com, sf3-fe
 
 # ---------- Soul 开屏广告（受 soul 开关控制） ----------
 ^https:\/\/ssp\.soulapp\.cn\/api\/q reject-dict enable={soul}
-
-# ---------- 番茄小说 开屏广告（受 fanqie 开关控制） ----------
-# 番茄小说是字节系 App，开屏素材（全屏图/视频）由字节广告 CDN 下发，
-# 拦截这些素材路径即可跳过开屏；不涉及响应体解析，不影响信息流/章末广告。
-^https?:\/\/sf3-be-pack\.pglstatp-toutiao\.com\/obj\/ad-app-package\/ reject enable={fanqie}
-^https?:\/\/sf3-fe-tos\.pglstatp-toutiao\.com\/obj\/ad-pattern\/ reject enable={fanqie}
-^https?:\/\/lf\d?-cdn-tos\.bytescm\.com\/obj\/static\/ad\/ reject enable={fanqie}
