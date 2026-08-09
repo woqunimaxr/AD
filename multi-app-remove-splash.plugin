@@ -1,5 +1,5 @@
 #!name=多App去开屏广告
-#!desc=仅移除指定 App 的开屏广告，每个 App 独立开关（默认开启）。萤石云视频(api.ys7.com/api/ads)、Soul(ssp.soulapp.cn/api/q)、番茄小说(字节广告素材 CDN 路径)、网易云音乐(广告素材域名 iadmusicmat.music.126.net)。需开启 MitM 并信任证书。在插件参数面板关闭某 App 开关即恢复其开屏广告；后续新增 App 直接按区块追加 [Argument]+[URL Rewrite] 即可。
+#!desc=仅移除指定 App 的开屏广告，每个 App 独立开关（默认开启）。萤石云视频(api.ys7.com/api/ads)、Soul(ssp.soulapp.cn/api/q)、番茄小说(字节广告素材 CDN 路径)、网易云音乐(开屏广告素材域名 iad*.music.126.net / iadmat*.nosdn.127.net)。需开启 MitM 并信任证书。在插件参数面板关闭某 App 开关即恢复其开屏广告；后续新增 App 直接按区块追加 [Argument]+[URL Rewrite] 即可。
 #!openUrl=https://clashios.app/stoverride/lodepuly_vpn_tool/
 
 # ============================================================
@@ -19,7 +19,7 @@ netease = switch,true,tag=网易云音乐 去开屏,desc=开/去除广告，关/
 #   新增 App 时，把对应域名追加到 hostname 列表
 # ============================================================
 [Mitm]
-hostname = api.ys7.com, ssp.soulapp.cn, sf3-be-pack.pglstatp-toutiao.com, sf3-fe-tos.pglstatp-toutiao.com, lf*-cdn-tos.bytescm.com, iadmusicmat.music.126.net, iadmusicmatvideo.music.126.net
+hostname = api.ys7.com, ssp.soulapp.cn, sf3-be-pack.pglstatp-toutiao.com, sf3-fe-tos.pglstatp-toutiao.com, lf*-cdn-tos.bytescm.com, iadmat.nosdn.127.net, iadmatapk.nosdn.127.net, iadmusicmat.music.126.net, iadmusicmatvideo.music.126.net
 
 # ============================================================
 # [URL Rewrite] 命中各 App 开屏广告接口时返回空/断开
@@ -40,7 +40,10 @@ hostname = api.ys7.com, ssp.soulapp.cn, sf3-be-pack.pglstatp-toutiao.com, sf3-fe
 ^https?:\/\/lf\d?-cdn-tos\.bytescm\.com\/obj\/static\/ad\/ reject enable={fanqie}
 
 # ---------- 网易云音乐 开屏广告（受 netease 开关控制） ----------
-# 网易云开屏素材（全屏图/视频）由广告素材域名 iadmusicmat.music.126.net 下发，
-# 拦截该域名即跳过开屏；不涉及响应体解析，不影响信息流/banner 等其他广告。
+# 网易云开屏素材（全屏图/视频）由以下广告素材域名下发，拦截即跳过开屏；
+# 对齐最新社区插件(Yu9191)的完整开屏域名清单，不涉及响应体解析，
+# 不影响信息流/banner 等其他广告。
+^https?:\/\/iadmat\.nosdn\.127\.net\/ reject enable={netease}
+^https?:\/\/iadmatapk\.nosdn\.127\.net\/ reject enable={netease}
 ^https?:\/\/iadmusicmat\.music\.126\.net\/ reject enable={netease}
 ^https?:\/\/iadmusicmatvideo\.music\.126\.net\/ reject enable={netease}
