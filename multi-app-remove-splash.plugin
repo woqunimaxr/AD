@@ -9,8 +9,8 @@
 #   格式：key = switch,默认,tag=显示名,desc=说明
 # ============================================================
 [Argument]
-ezviz = switch,true,tag=萤石云视频 去开屏,desc=关闭后保留萤石云开屏广告
-soul = switch,true,tag=Soul 去开屏,desc=关闭后保留 Soul 开屏广告
+ezviz = switch,true,tag=萤石云视频 去开屏,desc=开/去除广告，关/不拦截
+soul = switch,true,tag=Soul 去开屏,desc=开/去除广告，关/不拦截
 
 # ============================================================
 # [Mitm] 对所有开屏广告接口所在域名做解密（URL Rewrite 依赖此项）
