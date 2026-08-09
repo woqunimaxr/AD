@@ -1,0 +1,31 @@
+#!name=多App去开屏广告
+#!desc=仅移除指定 App 的开屏广告，每个 App 独立开关（默认开启）。萤石云视频(api.ys7.com/api/ads)、Soul(ssp.soulapp.cn/api/q)。需开启 MitM 并信任证书。在插件参数面板关闭某 App 开关即恢复其开屏广告；后续新增 App 直接按区块追加 [Argument]+[URL Rewrite] 即可。
+#!openUrl=https://clashios.app/stoverride/lodepuly_vpn_tool/
+
+# ============================================================
+# [Argument] 每个 App 一个开关，默认开启(true)
+#   安装插件后，Loon 会在「插件 → 参数」面板显示这些开关；
+#   关闭某个开关 → 对应 App 的开屏广告恢复正常。
+#   格式：key = switch,默认,tag=显示名,desc=说明
+# ============================================================
+[Argument]
+ezviz = switch,true,tag=萤石云视频 去开屏,desc=关闭后保留萤石云开屏广告
+soul = switch,true,tag=Soul 去开屏,desc=关闭后保留 Soul 开屏广告
+
+# ============================================================
+# [Mitm] 对所有开屏广告接口所在域名做解密（URL Rewrite 依赖此项）
+#   新增 App 时，把对应域名追加到 hostname 列表
+# ============================================================
+[Mitm]
+hostname = api.ys7.com, ssp.soulapp.cn
+
+# ============================================================
+# [URL Rewrite] 命中各 App 开屏广告接口时返回空/断开
+#   每条用 enable={开关名} 绑定上面的 Argument，可单独开关
+# ============================================================
+[URL Rewrite]
+# ---------- 萤石云视频 开屏广告（受 ezviz 开关控制） ----------
+^https:\/\/api\.ys7\.com\/api\/ads reject enable={ezviz}
+
+# ---------- Soul 开屏广告（受 soul 开关控制） ----------
+^https:\/\/ssp\.soulapp\.cn\/api\/q reject-dict enable={soul}
