@@ -1,0 +1,35 @@
+#!name=自动任务-签到
+#!desc=每天自动完成相关任务。\n开关方式：参数值填 # 表示关闭，填任意名称表示开启。\n首次使用需打开对应 APP 或 小程序 获取 Cookie。
+#!category=功能增强
+#!arguments=tiebaCookie:"#",tiebaqiandao:贴吧签到,wuaiCookie:"#",wuaiqiandao:吾爱签到,tiebadingshi:"00 12 * * *",wuaidingshi:"59 11 * * *"
+#!arguments-desc=tiebaCookie:\n贴吧 获取Cookie。默认 # 关闭，改为任意名称（如 贴吧Cookie）即开启\ntiebaqiandao:\n贴吧 定时签到。默认「贴吧签到」开启，改为 # 即关闭\nwuaiCookie:\n吾爱 获取Cookie。默认 # 关闭，改为任意名称即开启\nwuaiqiandao:\n吾爱 定时签到。默认「吾爱签到」开启，改为 # 即关闭\ntiebadingshi:\n贴吧签到 CRON，默认每天 12:00\nwuaidingshi:\n吾爱签到 CRON，默认每天 11:59
+
+# =====================================================
+# Loon → Surge 转换说明
+#
+# 1. 开关机制：Sub-Store 同款
+#    脚本行的名称用参数占位（{{{tiebaCookie}}}），
+#    参数值为 # 时整行变成 "#=type=..." 被当作注释，
+#    脚本不会被加载 —— 达到关闭效果。
+#
+# 2. Loon 原版的 switch 默认值：
+#    tiebaCookie   false（关闭）→ 本模块默认 #
+#    tiebaqiandao  true （开启）→ 本模块默认 贴吧签到
+#    wuaiCookie    false（关闭）→ 本模块默认 #
+#    wuaiqiandao   true （开启）→ 本模块默认 吾爱签到
+#
+# 3. Loon 的 img-url（脚本图标）Surge 不支持，已丢弃。
+# 4. 两个 Cookie 脚本只在打开对应登录页时触发，平时不跑。
+# =====================================================
+
+[Script]
+{{{tiebaCookie}}}=type=http-request,pattern=^https?:\/\/(c\.tieba|tiebac)\.baidu\.com\/c\/s\/login,script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/tieba/tieba.cookie.js,timeout=120
+
+{{{tiebaqiandao}}}=type=cron,cronexp="{{{tiebadingshi}}}",script-path=http://hao1u.cn/AD/JS/tieba.js,timeout=300,wake-system=1
+
+{{{wuaiCookie}}}=type=http-request,pattern=^https:\/\/www\.52pojie\.cn\/home\.php\?,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/52pojie.js,timeout=120
+
+{{{wuaiqiandao}}}=type=cron,cronexp="{{{wuaidingshi}}}",script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/52pojie.js,timeout=120,wake-system=1
+
+[MITM]
+hostname = %APPEND% c.tieba.baidu.com, tiebac.baidu.com, www.52pojie.cn
