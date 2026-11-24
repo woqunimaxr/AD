@@ -484,6 +484,7 @@ def main() -> int:
     ap.add_argument("--src", required=True, help="Loon .plugin 路径")
     ap.add_argument("--out", required=True, help="输出 .sgmodule 路径")
     ap.add_argument("--raw-url", default="", help="写进产物的订阅地址")
+    ap.add_argument("--date", default="", help="覆盖 #!date 时间戳；留空沿用源文件值")
     ap.add_argument("--min-rules", type=int, default=0)
     ap.add_argument("--min-scripts", type=int, default=0)
     ap.add_argument("--min-hosts", type=int, default=0)
@@ -532,6 +533,9 @@ def main() -> int:
     # ---------- 组装 ----------
     out: list[str] = []
     for k in META_ORDER:
+        if k == "date" and args.date:
+            out.append(f"#!date={args.date}")
+            continue
         if meta.get(k):
             val = meta[k]
             if k == "system":

@@ -51,10 +51,13 @@ jobs:
         run: |
           set -euo pipefail
           RAW="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/${OUT_FILE}"
+          TS="$(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "stamp=${TS}"
           python scripts/loon2surge.py \
             --src _tmp-src/blockAds.plugin \
             --out "$OUT_FILE" \
             --raw-url "$RAW" \
+            --date "$TS" \
             --min-rules 2000 \
             --min-scripts 200 \
             --min-hosts 800 \
