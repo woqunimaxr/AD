@@ -24,8 +24,10 @@ from __future__ import annotations
 
 import argparse
 import base64
+import json as _json
 import re
 import sys
+import urllib.request
 from pathlib import Path
 
 # ---------------------------------------------------------------- 正则
@@ -67,6 +69,51 @@ RE_MOCK = re.compile(
 RE_HEADER_SET = re.compile(
     r'^response\.header\.set\(\s*"(?P<k>[^"]+)"\s*,\s*"(?P<v>[^"]*)"\s*\)$'
 )
+
+# --- Surge [Body Rewrite] 能接住的几类（iOS 5.14.0+ / Mac 5.9.0+ 支持 jq）---
+# response.json.jq(`expr`)  -> http-response-jq <pattern> '<expr>'
+RE_JQ = re.compile(
+    r"^response\.json\.jq\(\s*(?P<q>[`'\"])(?P<expr>.*)(?P=q)\s*\)$", re.S
+)
+# response.body.replace(/re/flags, "repl")  -> http-response <pattern> /re/ repl
+RE_BODY_REPLACE = re.compile(
+    r"^response\.body\.replace\(\s*/(?P<re>(?:[^/\\]|\\.)*)/(?P<flags>[a-z]*)\s*,\s*"
+    r"(?P<repl>" + STR_LIT + r")\s*\)$",
+    re.S,
+)
+# response.json.delete("data.foo")  -> http-response-jq <pattern> 'del(.data.foo)'
+RE_JSON_DELETE = re.compile(
+    r"^response\.json\.delete\(\s*(?P<arg>\[[^\]]*\]|" + STR_LIT + r")\s*\)$", re.S
+)
+# url.replace("...")  -> [URL Rewrite] <pattern> <target> header
+RE_URL_REPLACE = re.compile(r"^url\.replace\(\s*(?P<u>" + STR_LIT + r")\s*\)$", re.S)
+# response.json.jq_file("url") -> 下载 jq 表达式后内联
+RE_JQ_FILE = re.compile(r'^response\.json\.jq_file\(\s*"(?P<url>[^"]+)"\s*\)$', re.S)
+# response.json.replace("path", "值") -> jq 赋值
+RE_JSON_REPLACE = re.compile(
+    r"^response\.json\.replace\(\s*(?P<path>" + STR_LIT + r")\s*,\s*(?P<val>" + STR_LIT + r")\s*\)$",
+    re.S,
+)
+
+
+def fetch_text(url: str, timeout: int = 8) -> str:
+    """下载远程文本（jq 表达式文件）；失败返回空串，由调用方降级为丢弃。"""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "loon2surge/1.0"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read().decode("utf-8", "replace").strip()
+    except Exception:
+        return ""
+
+
+def as_jq_literal(lit: str) -> str:
+    """把 Loon 的值转成 jq 字面量。合法的 JSON 原样，否则按字符串转义。"""
+    raw = unquote(lit)
+    try:
+        _json.loads(raw)
+        return raw
+    except Exception:
+        return _json.dumps(raw, ensure_ascii=False)
 
 ARGNAME_RE = re.compile(r"^[A-Za-z0-9_]+$")
 PH_LOON_RE = re.compile(r"\$\{([^}]+)\}")
@@ -273,6 +320,21 @@ def unescape_literal(s: str) -> str:
     return s.replace('\\"', '"').replace("\\'", "'").replace("\\/", "/")
 
 
+def parse_json_paths(arg: str) -> list[str]:
+    """json.delete 的参数 -> 路径列表。'data.foo' / ["a", "b"]"""
+    arg = arg.strip()
+    if arg.startswith("[") and arg.endswith("]"):
+        inner = arg[1:-1]
+        out = []
+        for piece in split_unquoted(inner):
+            v = unquote(piece).strip()
+            if v:
+                out.append(v)
+        return out
+    v = unquote(arg).strip()
+    return [v] if v else []
+
+
 def loon_placeholder_to_surge(value: str) -> str:
     """${x} -> {{{x}}}；其它原样。"""
     return PH_LOON_RE.sub(lambda m: "{{{" + m.group(1).strip() + "}}}", value)
@@ -474,6 +536,7 @@ def convert_rewrite_line(
     line: str,
     map_local: list[str],
     url_rewrite: list[str],
+    body_rewrite: list[str],
     dropped: list[str],
 ) -> None:
     s = line.strip()
@@ -550,7 +613,72 @@ def convert_rewrite_line(
                 )
             return
 
-    # --- 其余（json.jq / json.delete / body.replace / header.set / url.replace ...）
+    # --- json.jq -> [Body Rewrite] 的 jq 模式
+    mm = RE_JQ.match(action)
+    if mm:
+        expr = unescape_literal(mm.group("expr")).strip()
+        if "'" in expr:
+            dropped.append(f"{where} jq 表达式含单引号，跳过: {expr[:80]}")
+        else:
+            body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+        return
+
+    # --- body.replace(/re/flags, "x") -> [Body Rewrite] 正则替换
+    mm = RE_BODY_REPLACE.match(action)
+    if mm:
+        re_body = mm.group("re").replace("\\/", "/")
+        repl = unescape_literal(unquote(mm.group("repl")))
+        if not repl:
+            dropped.append(f"{where} body.replace 替换串为空: {re_body[:60]}")
+        elif " " in repl:
+            dropped.append(f"{where} body.replace 替换串含空格: {repl[:60]}")
+        else:
+            body_rewrite.append(f"http-response {pattern} /{re_body}/ {repl}")
+        return
+
+    # --- json.delete("a.b") -> [Body Rewrite] jq del()
+    mm = RE_JSON_DELETE.match(action)
+    if mm:
+        paths = parse_json_paths(mm.group("arg"))
+        if paths:
+            expr = "del(" + ", ".join("." + p for p in paths) + ")"
+            if "'" not in expr:
+                body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+                return
+        dropped.append(f"{where} json.delete 路径无法解析: {action[:90]}")
+        return
+
+    # --- url.replace("x") -> [URL Rewrite] header 模式
+    mm = RE_URL_REPLACE.match(action)
+    if mm:
+        target = unescape_literal(unquote(mm.group("u")))
+        target = re.sub(r"\$\{urlMatch\.(\d+)\}", r"$\1", target)
+        url_rewrite.append(f"{pattern} {target} header")
+        return
+
+    # --- json.jq_file("url") -> 下载 jq 表达式后内联
+    mm = RE_JQ_FILE.match(action)
+    if mm:
+        expr = fetch_text(mm.group("url"))
+        if expr and "'" not in expr:
+            body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+        else:
+            dropped.append(f"{where} jq_file 下载失败: {mm.group('url')[-60:]}")
+        return
+
+    # --- json.replace("path", "值") -> jq 赋值
+    mm = RE_JSON_REPLACE.match(action)
+    if mm:
+        path = unquote(mm.group("path")).strip()
+        if path:
+            expr = "." + path + " = " + as_jq_literal(mm.group("val"))
+            if "'" not in expr:
+                body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+                return
+        dropped.append(f"{where} json.replace 无法解析: {action[:90]}")
+        return
+
+    # --- 其余（数组路径批量 replace / 单独 header.set 等）
     dropped.append(f"{where} 无 Surge 等价动作: {action[:110]}")
 
 
@@ -714,8 +842,9 @@ def main() -> int:
 
     map_local: list[str] = []
     url_rewrite: list[str] = []
+    body_rewrite: list[str] = []
     for ln in sections.get("rewrite", []):
-        convert_rewrite_line(ln, map_local, url_rewrite, dropped)
+        convert_rewrite_line(ln, map_local, url_rewrite, body_rewrite, dropped)
 
     used_names: set[str] = set()
     script_out: list[str] = []
@@ -786,6 +915,11 @@ def main() -> int:
         out.extend(map_local)
         out.append("")
 
+    if body_rewrite:
+        out.append("[Body Rewrite]")
+        out.extend(body_rewrite)
+        out.append("")
+
     if script_out:
         out.append("[Script]")
         out.extend(script_out)
@@ -819,7 +953,8 @@ def main() -> int:
     print(f"[out] {dst}  {len(text)} 字符")
     print(
         f"[stat] 规则 {n_rule} / 脚本 {n_script} / MITM {n_host} / "
-        f"参数 {len(arglist)} / 丢弃 {len(dropped)} / 策略修正 {len(fixes)}"
+        f"参数 {len(arglist)} / BodyRewrite {len(body_rewrite)} / "
+        f"丢弃 {len(dropped)} / 策略修正 {len(fixes)}"
     )
 
     errs: list[str] = []
