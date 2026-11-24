@@ -86,6 +86,7 @@ jobs:
 
           echo "== 残留检查 =="
           if grep -n 'max-size=0' "$f"; then echo "残留 max-size=0"; exit 1; fi
+          if grep -nE ',PROXY\s*$' "$f"; then echo "残留非内置策略 PROXY"; exit 1; fi
           if grep -nE '^\s*(FINAL|MATCH)\s*,' "$f"; then echo "残留 FINAL/MATCH"; exit 1; fi
           if grep -nE '^\s*IP-CIDR6?\s*,' "$f" | grep -v 'no-resolve'; then
             echo "存在缺 no-resolve 的 IP-CIDR 规则"; exit 1

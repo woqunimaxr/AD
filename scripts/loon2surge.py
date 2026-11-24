@@ -75,6 +75,14 @@ RULE_PASSTHROUGH_HEADS = {"AND", "OR", "NOT"}
 RULE_DROP_HEADS = {"FINAL", "MATCH"}
 # IP-CIDR / IP-CIDR6 一律补 no-resolve，避免匹配时触发 DNS 解析
 RULE_IP_HEADS = {"IP-CIDR", "IP-CIDR6"}
+# Surge 模块内能用的内置策略。模块引用 profile 里不存在的策略会被报 unknown policy，
+# 而 Loon 的 PROXY 在 Surge 里并不存在，所以源头的非内置策略统一落到 REJECT。
+BUILTIN_POLICIES = {
+    "DIRECT", "REJECT", "REJECT-TINYGIF", "REJECT-DROP", "REJECT-NO-DROP",
+}
+
+RE_TRAILING_COMMENT = re.compile(r"\s*//.*$")
+RE_POLICY_TAIL = re.compile(r",\s*(?:DIRECT|REJECT(?:-[A-Z]+)?)\s*$", re.I)
 
 MAX_LINE = 8000  # 单行兜底长度，超过就截断并记日志
 
@@ -206,28 +214,47 @@ def build_argument_expr(names: list[str]) -> str | None:
 # ---------------------------------------------------------------- Rule
 
 
-def convert_rule_line(line: str, dropped: list[str]) -> str | None:
+def convert_rule_line(line: str, dropped: list[str], fixes: list[str]) -> str | None:
     s = line.strip()
     if not s:
         return ""
     if s.startswith("#"):
         return s
 
-    parts = [p.strip() for p in split_unquoted(s)]
+    # 源头存在 `REJECT //误杀` 这种把注释放进策略字段的脏数据，先剥掉
+    clean = RE_TRAILING_COMMENT.sub("", s).strip()
+    if not clean:
+        return ""
+
+    parts = [p.strip() for p in split_unquoted(clean)]
     head = parts[0].upper()
 
     if head in RULE_DROP_HEADS:
         dropped.append(f"[Rule] {s[:120]}")
         return None
+
     if head in RULE_PASSTHROUGH_HEADS:
-        # AND/OR/NOT 内部含嵌套逗号，整体不动
-        return s
+        # AND/OR/NOT 内部含嵌套逗号，结构整体不动，只校验结尾策略
+        if not RE_POLICY_TAIL.search(clean):
+            fixed = re.sub(r",\s*[^,()]+\s*$", ",REJECT", clean)
+            fixes.append(f"策略修正: {clean[:110]} -> {fixed[-40:]}")
+            clean = fixed
+        return clean
 
     if head in RULE_IP_HEADS:
         low = [p.lower() for p in parts]
         if "no-resolve" not in low:
             parts.append("no-resolve")
-        return ",".join(parts)
+
+    # 策略字段合法性：模块内只能用 Surge 内置策略
+    if len(parts) >= 2:
+        idx = -1
+        if parts[-1].lower() == "no-resolve" and len(parts) >= 3:
+            idx = -2
+        policy = parts[idx].strip()
+        if policy.upper() not in BUILTIN_POLICIES:
+            fixes.append(f"策略修正: {','.join(parts)[:110]} -> 策略 {policy} 改为 REJECT")
+            parts[idx] = "REJECT"
 
     return ",".join(parts)
 
@@ -503,9 +530,10 @@ def main() -> int:
     log: list[str] = []
 
     # ---------- 各段转换 ----------
+    fixes: list[str] = []
     rule_out: list[str] = []
     for ln in sections.get("rule", []):
-        got = convert_rule_line(ln, dropped)
+        got = convert_rule_line(ln, dropped, fixes)
         if got is not None:
             rule_out.append(got)
 
@@ -586,6 +614,12 @@ def main() -> int:
         out.append(guard(mitm_line, log, "[MITM]"))
         out.append("")
 
+    if fixes:
+        out.append("# ------- 策略字段已修正（Surge 模块内只允许内置策略）-------")
+        for fx in fixes[:200]:
+            out.append("# " + fx.replace("\n", " ")[:200])
+        out.append("")
+
     if dropped:
         out.append("# ---------------- 以下条目无 Surge 等价语法，已丢弃 ----------------")
         for d in dropped[:400]:
@@ -601,11 +635,30 @@ def main() -> int:
 
     # ---------- 自检 ----------
     print(f"[out] {dst}  {len(text)} 字符")
-    print(f"[stat] 规则 {n_rule} / 脚本 {n_script} / MITM {n_host} / 参数 {len(arglist)} / 丢弃 {len(dropped)}")
+    print(
+        f"[stat] 规则 {n_rule} / 脚本 {n_script} / MITM {n_host} / "
+        f"参数 {len(arglist)} / 丢弃 {len(dropped)} / 策略修正 {len(fixes)}"
+    )
 
     errs: list[str] = []
     if "max-size=0" in text:
         errs.append("残留 max-size=0（Surge 会当成 0 字节上限）")
+
+    bad_policy: list[str] = []
+    for ln in rule_out:
+        t = ln.strip()
+        if not t or t.startswith("#"):
+            continue
+        seg = [x.strip() for x in split_unquoted(t)]
+        if len(seg) < 2:
+            continue
+        i = -1
+        if seg[-1].lower() == "no-resolve" and len(seg) >= 3:
+            i = -2
+        if seg[i].upper() not in BUILTIN_POLICIES:
+            bad_policy.append(t)
+    if bad_policy:
+        errs.append(f"{len(bad_policy)} 条规则用了非内置策略: {bad_policy[0][:90]}")
     if re.search(r"^\s*(FINAL|MATCH)\s*,", text, re.M):
         errs.append("残留 FINAL/MATCH 规则")
     if arglist and not args.no_arguments:
