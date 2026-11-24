@@ -89,9 +89,12 @@ RE_JSON_DELETE = re.compile(
 RE_URL_REPLACE = re.compile(r"^url\.replace\(\s*(?P<u>" + STR_LIT + r")\s*\)$", re.S)
 # response.json.jq_file("url") -> 下载 jq 表达式后内联
 RE_JQ_FILE = re.compile(r'^response\.json\.jq_file\(\s*"(?P<url>[^"]+)"\s*\)$', re.S)
-# response.json.replace("path", "值") -> jq 赋值
+# response.json.replace("path", "值") 或 (["p1","p2"], [v1,v2]) -> jq 赋值
+# 数组分支用 .*? 而非 [^\]]*：路径里可能含 card_items[0] 这类下标，方括号会嵌套
 RE_JSON_REPLACE = re.compile(
-    r"^response\.json\.replace\(\s*(?P<path>" + STR_LIT + r")\s*,\s*(?P<val>" + STR_LIT + r")\s*\)$",
+    r"^response\.json\.replace\(\s*"
+    r"(?P<path>" + STR_LIT + r"|\[.*?\])\s*,\s*"
+    r"(?P<val>" + STR_LIT + r"|\[.*?\])\s*\)$",
     re.S,
 )
 
@@ -327,7 +330,7 @@ def unescape_literal(s: str) -> str:
 
 
 def parse_json_paths(arg: str) -> list[str]:
-    """json.delete 的参数 -> 路径列表。'data.foo' / ["a", "b"]"""
+    """json.delete / json.replace 的路径参数 -> 路径列表。'data.foo' / ["a", "b"]"""
     arg = arg.strip()
     if arg.startswith("[") and arg.endswith("]"):
         inner = arg[1:-1]
@@ -339,6 +342,24 @@ def parse_json_paths(arg: str) -> list[str]:
         return out
     v = unquote(arg).strip()
     return [v] if v else []
+
+
+def parse_json_values(arg: str) -> list[str]:
+    """json.replace 的值参数 -> jq 字面量列表。[false, false, null] / "{}" """
+    arg = arg.strip()
+    if arg.startswith("[") and arg.endswith("]"):
+        out = []
+        for piece in split_unquoted(arg[1:-1]):
+            v = piece.strip()
+            if not v:
+                continue
+            try:
+                _json.loads(v)
+                out.append(v)
+            except Exception:
+                out.append(_json.dumps(unquote(v), ensure_ascii=False))
+        return out
+    return [as_jq_literal(arg)]
 
 
 def loon_placeholder_to_surge(value: str) -> str:
@@ -672,16 +693,17 @@ def convert_rewrite_line(
             dropped.append(f"{where} jq_file 下载失败: {mm.group('url')[-60:]}")
         return
 
-    # --- json.replace("path", "值") -> jq 赋值
+    # --- json.replace("path", "值") / (["p1","p2"], [v1,v2]) -> jq 赋值
     mm = RE_JSON_REPLACE.match(action)
     if mm:
-        path = unquote(mm.group("path")).strip()
-        if path:
-            expr = "." + path + " = " + as_jq_literal(mm.group("val"))
+        paths = parse_json_paths(mm.group("path"))
+        vals = parse_json_values(mm.group("val"))
+        if paths and len(paths) == len(vals):
+            expr = " | ".join(f".{p} = {v}" for p, v in zip(paths, vals))
             if "'" not in expr:
                 body_rewrite.append(f"http-response-jq {pattern} '{oneline(expr)}'")
                 return
-        dropped.append(f"{where} json.replace 无法解析: {action[:90]}")
+        dropped.append(f"{where} json.replace 路径与值数量不匹配: {action[:90]}")
         return
 
     # --- 其余（数组路径批量 replace / 单独 header.set 等）

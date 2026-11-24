@@ -6,7 +6,7 @@
 #!homepage=https://github.com/fmz200/wool_scripts
 #!tag=去广告, fmz200, 奶思
 #!system=ios
-#!date=2026-11-24 08:15:18
+#!date=2026-11-24 08:17:51
 #!tg-channel=https://t.me/inaisi
 #!remark=下方的所有规则都标注了对应的hostname，可能存在错误或者遗漏，欢迎反馈。对于无法/可选MITM的hostname都特别做了“如开启可自行添加主机名”提示，如果提示后面没有标注主机名则包含所有主机名，否则只包含提示语后面的主机名。
 #!raw-url=https://raw.githubusercontent.com/woqunimaxr/AD/main/surge/blockAds.sgmodule
@@ -103,7 +103,7 @@
 # ============================================================
 # 由 Loon 插件自动转换  blockAds.plugin
 # 规则 2966 条 / 脚本 220 条 / MITM 主机 967 个
-# 未能映射被丢弃 1 项（明细见文件末尾注释）
+# 未能映射被丢弃 0 项（明细见文件末尾注释）
 # ============================================================
 
 [URL Rewrite]
@@ -5613,6 +5613,7 @@ http-response-jq (?i)^https://az2-api-js\.gifshow\.com/rest/n/user/profile/v2\? 
 http-response-jq (?i)http://dili.sqcosmos.com/jiekou/mains/p\d+.html '.album |= map(select(.id != "4154" and .id != "4165"))'
 http-response (?i)^https?://mobile\.yangkeduo\.com/proxy/api/api/express/post/waybill/red_packet/goods_list$ /"list":\[.+\]/ "list":[]
 http-response-jq (?i)^https://j1\.pupuapi\.com/client/notification/message_center/unread_number '.data = []'
+http-response-jq (?i)^https://beta-luna\.douyin\.com/luna/card\? '.card_items[0].priority_display = false | .card_items[0].is_show = false | .preview_guide = null'
 http-response-jq (?i)^https://beta-luna\.douyin\.com/luna/more-panel\? 'del(.blocks[1])'
 http-response (?i)^https?://capi\.lkcoffee\.com/resource/m/sys/app/adposNew /\{.+\}/ {"status":"SUCCESS"}
 http-response (?i)^https?://m\.lkcoffee\.com/ecapi/resource/m/member/exchange/page /\{.+\}/ {"status":"SUCCESS"}
@@ -6347,6 +6348,3 @@ hostname = %APPEND% gab.122.gov.cn, ad.12306.cn, api.21jingji.com, tianqi.2345.c
 
 # ------- 策略字段已修正（Surge 模块内只允许内置策略）-------
 # 策略修正: DOMAIN,bsbsb.top,PROXY -> 策略 PROXY 改为 REJECT
-
-# ---------------- 以下条目无 Surge 等价语法，已丢弃 ----------------
-# [Rewrite/response] 无 Surge 等价动作: response.json.replace(["card_items[0].priority_display", "card_items[0].is_show", "preview_guide"], [false, fa
