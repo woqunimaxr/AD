@@ -190,24 +190,32 @@ def parse_arguments(lines: list[str]) -> list[tuple[str, str, str]]:
         kind = parts[0].lower() if parts else "switch"
         if kind == "switch":
             default = unquote(parts[1]) if len(parts) > 1 else "true"
-            default = "false" if default.lower() in ("false", "0", "no", "off") else "true"
+            # Loon 的 true/false 统一成 1/0，Surge 参数表里更好读
+            default = "0" if default.lower() in ("false", "0", "no", "off") else "1"
         else:  # select / input / text ...
             default = unquote(parts[1]) if len(parts) > 1 else ""
         out.append((name, kind, default))
     return out
 
 
-def build_argument_expr(names: list[str]) -> str | None:
+def build_argument_expr(names: list[str], bool_names: set[str]) -> str | None:
     """
     names -> Surge 脚本行的 argument= 值（含外层双引号）
-    产物形如: "{\\"a_enable\\":{{{a_enable}}},\\"b\\":\\"{{{b}}}\\"}"
+
+    switch 型写裸数字 1/0：JS 里 "0" 是非空字符串（真值），只有数字 0 才是假值，
+    所以必须裸写，否则开关关掉了脚本仍然会跑。
+    select/input 型写带引号的字符串，保持原类型。
     """
     names = list(dict.fromkeys(n for n in names if n))
     if not names:
         return None
     parts = []
     for n in names:
-        parts.append('\\"' + n + '\\":' + "{{{" + n + "}}}")
+        key = '\\"' + n + '\\":'
+        if n in bool_names:
+            parts.append(key + "{{{" + n + "}}}")
+        else:
+            parts.append(key + '\\"' + "{{{" + n + "}}}" + '\\"')
     return '"' + "{" + ",".join(parts) + "}" + '"'
 
 
@@ -404,6 +412,7 @@ def convert_script_line(
     line: str,
     used_names: set[str],
     dropped: list[str],
+    bool_names: set[str],
 ) -> str | None:
     s = line.strip()
     if not s or s.startswith("#"):
@@ -462,7 +471,7 @@ def convert_script_line(
             continue
         surge_params.append(f"{k}={loon_placeholder_to_surge(v)}")
 
-    arg_expr = build_argument_expr(arg_names)
+    arg_expr = build_argument_expr(arg_names, bool_names)
     if arg_expr:
         surge_params.append(f"argument={arg_expr}")
 
@@ -526,6 +535,7 @@ def main() -> int:
 
     meta, sections, order = read_source(src)
     arglist = parse_arguments(sections.get("argument", []))
+    bool_names = {n for n, k, _ in arglist if k == "switch"}
     dropped: list[str] = []
     log: list[str] = []
 
@@ -545,7 +555,7 @@ def main() -> int:
     used_names: set[str] = set()
     script_out: list[str] = []
     for ln in sections.get("script", []):
-        got = convert_script_line(ln, used_names, dropped)
+        got = convert_script_line(ln, used_names, dropped, bool_names)
         if got is not None:
             script_out.append(got)
 
@@ -578,7 +588,7 @@ def main() -> int:
     if arglist and not args.no_arguments:
         out.append("#!arguments=" + ",".join(f"{n}:{d}" for n, _, d in arglist))
         out.append(
-            "#!arguments-desc=各 APP 去广告开关；改完需要在 Surge 里重新加载本模块才会生效"
+            "#!arguments-desc=各 APP 去广告开关，0=关 1=开；改完需要在 Surge 里重新加载本模块才会生效"
         )
 
     out.append("")
