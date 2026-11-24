@@ -1,0 +1,102 @@
+name: build blockAds
+
+on:
+  schedule:
+    # UTC 16:43 = 北京时间次日 00:43，每天一次
+    - cron: "43 16 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/**"
+      - ".github/workflows/build-blockads.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-blockads
+  cancel-in-progress: true
+
+env:
+  SRC_URL: https://raw.githubusercontent.com/fmz200/wool_scripts/main/Loon/plugin/blockAds.plugin
+  OUT_FILE: surge/blockAds.sgmodule
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 拉取 Loon 源
+        run: |
+          set -euo pipefail
+          mkdir -p _tmp-src
+          curl -fsSL --retry 3 --retry-delay 3 \
+            --user-agent "blockads-builder/1.0" \
+            -o _tmp-src/blockAds.plugin \
+            "$SRC_URL"
+          size=$(wc -c < _tmp-src/blockAds.plugin)
+          echo "源文件 ${size} 字节"
+          test "$size" -gt 100000 || { echo "源文件体积异常，疑似被拦截或路径变更"; exit 1; }
+
+      - name: 转换为 Surge 模块
+        run: |
+          set -euo pipefail
+          RAW="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/${OUT_FILE}"
+          python scripts/loon2surge.py \
+            --src _tmp-src/blockAds.plugin \
+            --out "$OUT_FILE" \
+            --raw-url "$RAW" \
+            --min-rules 2000 \
+            --min-scripts 200 \
+            --min-hosts 800 \
+            --strict
+
+      - name: 产物体检
+        run: |
+          set -euo pipefail
+          f="$OUT_FILE"
+          test -s "$f" || { echo "产物为空"; exit 1; }
+
+          echo "== 段头 =="
+          grep -n '^\[' "$f"
+
+          echo "== 关键断言 =="
+          grep -q '^#!arguments='  "$f" || { echo "缺 #!arguments 参数表"; exit 1; }
+          grep -q '^\[Script\]'    "$f" || { echo "缺 [Script] 段";    exit 1; }
+          grep -q '^\[MITM\]'      "$f" || { echo "缺 [MITM] 段";      exit 1; }
+          grep -q '^\[Map Local\]' "$f" || { echo "缺 [Map Local] 段"; exit 1; }
+
+          echo "MaxLocal : $(grep -c 'data-type=' "$f" || true)"
+          echo "Script   : $(grep -c 'type=http-' "$f" || true)"
+          echo "Argument : $(grep -c 'argument=' "$f" || true)"
+          echo "noResolve: $(grep -c 'no-resolve' "$f" || true)"
+          echo "占位符   : $(grep -o '{{{[A-Za-z0-9_]*}}}' "$f" | wc -l)"
+
+          echo "== 残留检查 =="
+          if grep -n 'max-size=0' "$f"; then echo "残留 max-size=0"; exit 1; fi
+          if grep -nE '^\s*(FINAL|MATCH)\s*,' "$f"; then echo "残留 FINAL/MATCH"; exit 1; fi
+          if grep -nE '^\s*IP-CIDR6?\s*,' "$f" | grep -v 'no-resolve'; then
+            echo "存在缺 no-resolve 的 IP-CIDR 规则"; exit 1
+          fi
+
+      - name: 提交变更
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain "$OUT_FILE")" ]; then
+            echo "内容无变化，跳过提交"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$OUT_FILE"
+          git commit -m "chore: rebuild blockAds $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
