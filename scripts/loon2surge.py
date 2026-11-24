@@ -84,6 +84,104 @@ BUILTIN_POLICIES = {
 RE_TRAILING_COMMENT = re.compile(r"\s*//.*$")
 RE_POLICY_TAIL = re.compile(r",\s*(?:DIRECT|REJECT(?:-[A-Z]+)?)\s*$", re.I)
 
+# 原名 -> Surge 参数名。Surge 参数名只允许 [A-Za-z0-9_]，
+# 而源文件的 bohejmkh_enable / whyiyzdccidm_enable 这类随机码没法读，
+# 统一换成 APP 拼音；bili_ / netease_ / spotify_ 前缀表示该 APP 的界面开关。
+NAME_MAP = {
+    "12306_enable": "12306",
+    "51xyk_enable": "xinyongka51",
+    "555_enable": "ys555",
+    "albb_enable": "alibaba",
+    "alyp_enable": "alipan",
+    "aiqiyi_enable": "iqiyi",
+    "bdduditu_enable": "baidumap",
+    "per_filter_video_thread": "tieba_novideo",
+    "bohejmkh_enable": "bohejiankang",
+    "displayUpList": "bili_updisplay",
+    "purifyComment": "bili_purifycomment",
+    "optimizeRequest": "bili_optreq",
+    "sponsorBlock": "bili_sponsor",
+    "logLevel": "bili_loglevel",
+    "bilimanhua_enable": "bilibilimanga",
+    "blued_enable": "blued",
+    "cdxb_enable": "caixin",
+    "cdnngogo_enable": "cainiao",
+    "davsdmpk_enable": "dianping",
+    "didiiuxk_enable": "didi",
+    "dyls_enable": "dianyinglieshou",
+    "ddmc_enable": "dingdong",
+    "dshxfg_enable": "donghuafeng",
+    "fwke_enable": "feike",
+    "ffbi_enable": "fenbi",
+    "flightradar24_enable": "flightradar24",
+    "hlzh_enable": "hanglv",
+    "hema_enable": "hema",
+    "hftx_enable": "huifu",
+    "itzj_enable": "ithome",
+    "jhsh_enable": "jianhang",
+    "jkds_enable": "jingdong",
+    "jkxi_enable": "jingxi",
+    "kuan_enable": "kuan",
+    "kuwoybyt_enable": "kuwo",
+    "kxke_enable": "quark",
+    "glgclmmg_enable": "kuaishou",
+    "keep_enable": "keep",
+    "lvtusvuftk_enable": "lvtu",
+    "lawson_enable": "lawson",
+    "mafgwo_enable": "mafengwo",
+    "mddjba_enable": "maidanba",
+    "mdmd_enable": "maimai",
+    "mhgotv_enable": "mangotv",
+    "meiyou_enable": "meiyou",
+    "pupuicui_enable": "pupu",
+    "51job_enable": "job51",
+    "quda_enable": "quda",
+    "rfrfuipk_enable": "renren",
+    "reddit_enable": "reddit",
+    "smzdm_enable": "smzdm",
+    "sudaxnyr_enable": "suda",
+    "soul_enable": "soul",
+    "tab": "spotify_tab",
+    "useractivity": "spotify_handoff",
+    "tcbc_enable": "taobao",
+    "tgxyxbwf_enable": "txnews",
+    "vgtime_enable": "vgtime",
+    "whyiyzdccidm_enable": "youdaocidian",
+    "MY": "netease_my",
+    "DT": "netease_dt",
+    "FX": "netease_fx",
+    "PRGG": "netease_greet",
+    "PRRK": "netease_rank",
+    "PRDRD": "netease_daily",
+    "PRSCVPT": "netease_scvpt",
+    "PRST": "netease_recent",
+    "PRRR": "netease_radar",
+    "HMPR": "netease_partner",
+    "PRMST": "netease_personal",
+    "PRCN": "netease_yours",
+    "lmjpxmvi_enable": "wechatlink",
+    "wfnibovj_enable": "winnipeg",
+    "xljnuiyivsuvgo_enable": "xiangjiao",
+    "xhs_enable": "xiaohongshu",
+    "xnmh_enable": "xiaomang",
+    "xnmiuhig_enable": "mishop",
+    "xntuisis_enable": "xiaotuchong",
+    "yzku_enable": "youku",
+    "yzxiapp_enable": "youxi",
+    "youtube_enable": "youtube",
+    "vhuhgsjn_enable": "bus",
+    "vihu_enable": "zhihu",
+    "vsgogojihhks_enable": "airchina",
+    "vrvr_enable": "zhuanzhuan",
+}
+
+
+def surge_name(orig: str) -> str:
+    """原名 -> Surge 参数名；未收录的降级为去掉 _enable 后缀。"""
+    if orig in NAME_MAP:
+        return NAME_MAP[orig]
+    return re.sub(r"_enable$", "", orig)
+
 MAX_LINE = 8000  # 单行兜底长度，超过就截断并记日志
 
 # ---------------------------------------------------------------- 工具
@@ -175,9 +273,9 @@ def read_source(path: Path) -> tuple[dict[str, str], dict[str, list[str]], list[
     return meta, sections, order
 
 
-def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str]]:
-    """[Argument] -> [(名字, 类型, 默认值, 中文标签)]"""
-    out: list[tuple[str, str, str, str]] = []
+def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str, str]]:
+    """[Argument] -> [(Surge 名, 原名, 类型, 默认值, 中文标签)]"""
+    out: list[tuple[str, str, str, str, str]] = []
     for raw in lines:
         line = raw.strip()
         if not line or line.startswith("#") or "=" not in line:
@@ -203,28 +301,32 @@ def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str]]:
                 break
         tag = re.sub(r"[-_]?(?:脚本)?开关$", "", tag).strip()
 
-        out.append((name, kind, default, tag))
+        out.append((surge_name(name), name, kind, default, tag))
     return out
 
 
-def build_argument_expr(names: list[str], bool_names: set[str]) -> str | None:
+def build_argument_expr(orig_names: list[str], bool_names: set[str]) -> str | None:
     """
-    names -> Surge 脚本行的 argument= 值（含外层双引号）
+    原名列表 -> Surge 脚本行的 argument= 值（含外层双引号）
+
+    JSON 的 key 必须保留原名（脚本读的就是这个名字），
+    值里的占位符用可读的拼音名。
 
     switch 型写裸数字 1/0：JS 里 "0" 是非空字符串（真值），只有数字 0 才是假值，
     所以必须裸写，否则开关关掉了脚本仍然会跑。
     select/input 型写带引号的字符串，保持原类型。
     """
-    names = list(dict.fromkeys(n for n in names if n))
-    if not names:
+    orig_names = list(dict.fromkeys(n for n in orig_names if n))
+    if not orig_names:
         return None
     parts = []
-    for n in names:
-        key = '\\"' + n + '\\":'
-        if n in bool_names:
-            parts.append(key + "{{{" + n + "}}}")
+    for o in orig_names:
+        key = '\\"' + o + '\\":'
+        ph = "{{{" + surge_name(o) + "}}}"
+        if o in bool_names:
+            parts.append(key + ph)
         else:
-            parts.append(key + '\\"' + "{{{" + n + "}}}" + '\\"')
+            parts.append(key + '\\"' + ph + '\\"')
     return '"' + "{" + ",".join(parts) + "}" + '"'
 
 
@@ -544,7 +646,7 @@ def main() -> int:
 
     meta, sections, order = read_source(src)
     arglist = parse_arguments(sections.get("argument", []))
-    bool_names = {n for n, k, _, _ in arglist if k == "switch"}
+    bool_names = {o for _, o, k, _, _ in arglist if k == "switch"}
     dropped: list[str] = []
     log: list[str] = []
 
@@ -595,16 +697,16 @@ def main() -> int:
         out.append(f"#!raw-url={args.raw_url}")
 
     if arglist and not args.no_arguments:
-        out.append("#!arguments=" + ",".join(f"{n}:{d}" for n, _, d, _ in arglist))
-        pairs = [f"{n}={t}" for n, _, _, t in arglist if t]
-        desc = "各 APP 去广告开关，0=关 1=开；改完需要重新加载本模块才会生效。"
-        if pairs:
-            desc += "参数对照：" + "｜".join(pairs)
-        out.append("#!arguments-desc=" + desc)
+        out.append("#!arguments=" + ",".join(f"{s}:{d}" for s, _, _, d, _ in arglist))
+        out.append(
+            "#!arguments-desc=0=关 1=开，改完需重新加载模块才会生效。"
+            "参数名即 APP 拼音；bili_ 哔哩哔哩 / netease_ 网易云音乐 / spotify_ Spotify 的界面开关。"
+        )
         out.append("")
-        out.append("# ---------------- 开关对照表（Surge 参数名只允许 ASCII，中文只能放注释和 desc）----------------")
-        for n, _, d, t in arglist:
-            out.append(f"# {n} = {d}" + (f"    {t}" if t else ""))
+        out.append("# ---------------- 开关对照表 ----------------")
+        for s, o, _, d, t in arglist:
+            alias = f"   <- {o}" if s != o else ""
+            out.append(f"# {s} = {d}" + (f"    {t}" if t else "") + alias)
 
     out.append("")
     out.append("# ============================================================")
@@ -690,7 +792,7 @@ def main() -> int:
         if "{{{" in text and "#!arguments=" not in text:
             errs.append("有占位符但缺 #!arguments 声明")
         # 每个占位符都必须在参数表里有声明
-        declared = {n for n, _, _, _ in arglist}
+        declared = {s for s, _, _, _, _ in arglist}
         for ph in set(re.findall(r"\{\{\{([A-Za-z0-9_]+)\}\}\}", text)):
             if ph not in declared:
                 errs.append(f"占位符 {{{{{ph}}}}} 未在 #!arguments 中声明")
