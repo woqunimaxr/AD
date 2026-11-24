@@ -175,9 +175,9 @@ def read_source(path: Path) -> tuple[dict[str, str], dict[str, list[str]], list[
     return meta, sections, order
 
 
-def parse_arguments(lines: list[str]) -> list[tuple[str, str, str]]:
-    """[Argument] -> [(名字, 类型, 默认值)]"""
-    out: list[tuple[str, str, str]] = []
+def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str]]:
+    """[Argument] -> [(名字, 类型, 默认值, 中文标签)]"""
+    out: list[tuple[str, str, str, str]] = []
     for raw in lines:
         line = raw.strip()
         if not line or line.startswith("#") or "=" not in line:
@@ -194,7 +194,16 @@ def parse_arguments(lines: list[str]) -> list[tuple[str, str, str]]:
             default = "0" if default.lower() in ("false", "0", "no", "off") else "1"
         else:  # select / input / text ...
             default = unquote(parts[1]) if len(parts) > 1 else ""
-        out.append((name, kind, default))
+
+        # 抽 tag= 的中文标签，Surge 参数名只能 ASCII，中文靠 desc 露面
+        tag = ""
+        for p in parts[1:]:
+            if p.lower().startswith("tag="):
+                tag = unquote(p[4:]).strip()
+                break
+        tag = re.sub(r"[-_]?(?:脚本)?开关$", "", tag).strip()
+
+        out.append((name, kind, default, tag))
     return out
 
 
@@ -535,7 +544,7 @@ def main() -> int:
 
     meta, sections, order = read_source(src)
     arglist = parse_arguments(sections.get("argument", []))
-    bool_names = {n for n, k, _ in arglist if k == "switch"}
+    bool_names = {n for n, k, _, _ in arglist if k == "switch"}
     dropped: list[str] = []
     log: list[str] = []
 
@@ -586,10 +595,16 @@ def main() -> int:
         out.append(f"#!raw-url={args.raw_url}")
 
     if arglist and not args.no_arguments:
-        out.append("#!arguments=" + ",".join(f"{n}:{d}" for n, _, d in arglist))
-        out.append(
-            "#!arguments-desc=各 APP 去广告开关，0=关 1=开；改完需要在 Surge 里重新加载本模块才会生效"
-        )
+        out.append("#!arguments=" + ",".join(f"{n}:{d}" for n, _, d, _ in arglist))
+        pairs = [f"{n}={t}" for n, _, _, t in arglist if t]
+        desc = "各 APP 去广告开关，0=关 1=开；改完需要重新加载本模块才会生效。"
+        if pairs:
+            desc += "参数对照：" + "｜".join(pairs)
+        out.append("#!arguments-desc=" + desc)
+        out.append("")
+        out.append("# ---------------- 开关对照表（Surge 参数名只允许 ASCII，中文只能放注释和 desc）----------------")
+        for n, _, d, t in arglist:
+            out.append(f"# {n} = {d}" + (f"    {t}" if t else ""))
 
     out.append("")
     out.append("# ============================================================")
@@ -675,7 +690,7 @@ def main() -> int:
         if "{{{" in text and "#!arguments=" not in text:
             errs.append("有占位符但缺 #!arguments 声明")
         # 每个占位符都必须在参数表里有声明
-        declared = {n for n, _, _ in arglist}
+        declared = {n for n, _, _, _ in arglist}
         for ph in set(re.findall(r"\{\{\{([A-Za-z0-9_]+)\}\}\}", text)):
             if ph not in declared:
                 errs.append(f"占位符 {{{{{ph}}}}} 未在 #!arguments 中声明")
