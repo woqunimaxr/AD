@@ -115,6 +115,12 @@ def as_jq_literal(lit: str) -> str:
     except Exception:
         return _json.dumps(raw, ensure_ascii=False)
 
+
+def oneline(s: str) -> str:
+    """压成一行。Surge 的 [Body Rewrite] 一条规则必须占一行，
+    源文件里跨行的 jq 表达式 / 正则必须折叠，否则产物会断成多条无效行。"""
+    return re.sub(r"\s*\n\s*", " ", s).strip()
+
 ARGNAME_RE = re.compile(r"^[A-Za-z0-9_]+$")
 PH_LOON_RE = re.compile(r"\$\{([^}]+)\}")
 
@@ -620,7 +626,7 @@ def convert_rewrite_line(
         if "'" in expr:
             dropped.append(f"{where} jq 表达式含单引号，跳过: {expr[:80]}")
         else:
-            body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+            body_rewrite.append(f"http-response-jq {pattern} '{oneline(expr)}'")
         return
 
     # --- body.replace(/re/flags, "x") -> [Body Rewrite] 正则替换
@@ -630,10 +636,10 @@ def convert_rewrite_line(
         repl = unescape_literal(unquote(mm.group("repl")))
         if not repl:
             dropped.append(f"{where} body.replace 替换串为空: {re_body[:60]}")
-        elif " " in repl:
+        elif " " in oneline(repl):
             dropped.append(f"{where} body.replace 替换串含空格: {repl[:60]}")
         else:
-            body_rewrite.append(f"http-response {pattern} /{re_body}/ {repl}")
+            body_rewrite.append(f"http-response {pattern} /{oneline(re_body)}/ {oneline(repl)}")
         return
 
     # --- json.delete("a.b") -> [Body Rewrite] jq del()
@@ -643,7 +649,7 @@ def convert_rewrite_line(
         if paths:
             expr = "del(" + ", ".join("." + p for p in paths) + ")"
             if "'" not in expr:
-                body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+                body_rewrite.append(f"http-response-jq {pattern} '{oneline(expr)}'")
                 return
         dropped.append(f"{where} json.delete 路径无法解析: {action[:90]}")
         return
@@ -661,7 +667,7 @@ def convert_rewrite_line(
     if mm:
         expr = fetch_text(mm.group("url"))
         if expr and "'" not in expr:
-            body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+            body_rewrite.append(f"http-response-jq {pattern} '{oneline(expr)}'")
         else:
             dropped.append(f"{where} jq_file 下载失败: {mm.group('url')[-60:]}")
         return
@@ -673,7 +679,7 @@ def convert_rewrite_line(
         if path:
             expr = "." + path + " = " + as_jq_literal(mm.group("val"))
             if "'" not in expr:
-                body_rewrite.append(f"http-response-jq {pattern} '{expr}'")
+                body_rewrite.append(f"http-response-jq {pattern} '{oneline(expr)}'")
                 return
         dropped.append(f"{where} json.replace 无法解析: {action[:90]}")
         return
