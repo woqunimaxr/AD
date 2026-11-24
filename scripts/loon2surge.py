@@ -87,7 +87,8 @@ RE_POLICY_TAIL = re.compile(r",\s*(?:DIRECT|REJECT(?:-[A-Z]+)?)\s*$", re.I)
 # 原名 -> Surge 参数名。Surge 参数名只允许 [A-Za-z0-9_]，
 # 而源文件的 bohejmkh_enable / whyiyzdccidm_enable 这类随机码没法读，
 # 统一换成 APP 拼音；bili_ / netease_ / spotify_ 前缀表示该 APP 的界面开关。
-NAME_MAP = {
+# 拼音 fallback：只在源文件缺 tag 时兜底
+_PINYIN_FALLBACK = {
     "12306_enable": "12306",
     "51xyk_enable": "xinyongka51",
     "555_enable": "ys555",
@@ -176,10 +177,50 @@ NAME_MAP = {
 }
 
 
-def surge_name(orig: str) -> str:
-    """原名 -> Surge 参数名；未收录的降级为去掉 _enable 后缀。"""
-    if orig in NAME_MAP:
-        return NAME_MAP[orig]
+# 少数 tag 没带 APP 前缀、或带 [] 的，手工写成一眼能认的中文
+LABEL_OVERRIDE = {
+    "per_filter_video_thread": "贴吧-推荐页不显示视频贴",
+    "displayUpList": "B站-动态最常访问",
+    "purifyComment": "B站-过滤置顶评论",
+    "optimizeRequest": "B站-优化评论区加载",
+    "sponsorBlock": "B站-空降助手",
+    "logLevel": "B站-日志等级",
+    "tab": "Spotify-移除底栏按钮",
+    "useractivity": "Spotify-设备接力",
+    "MY": "网易云-隐藏漫游标签",
+    "DT": "网易云-隐藏笔记标签",
+    "FX": "网易云-隐藏发现标签",
+    "PRGG": "网易云-隐藏问候语",
+    "PRRK": "网易云-隐藏排行榜",
+    "PRDRD": "网易云-隐藏每日推荐",
+    "PRSCVPT": "网易云-隐藏推荐歌单",
+    "PRST": "网易云-隐藏最近常听",
+    "PRRR": "网易云-隐藏雷达歌单",
+    "HMPR": "网易云-隐藏音乐合伙人",
+    "PRMST": "网易云-隐藏专属推荐",
+    "PRCN": "网易云-隐藏你的歌单",
+}
+
+
+def surge_name(orig: str, tag: str = "") -> str:
+    """
+    原名 -> Surge 参数名。
+
+    Surge 实测支持中文参数名（NobyDa 的 DisneyRating.sgmodule 就是
+    #!arguments=脚本引擎:jsc,调试模式:0 + {{{脚本引擎}}}），
+    所以直接用 APP 的中文名，比拼音好认。
+    """
+    if orig in LABEL_OVERRIDE:
+        return LABEL_OVERRIDE[orig]
+
+    label = re.sub(r"[-_]?(?:脚本)?开关$", "", tag).strip() if tag else ""
+    # 逗号会切坏 #!arguments，方括号在参数名里不干净
+    label = label.replace(",", "，").replace("[", "").replace("]", "").strip()
+    if label:
+        return label
+
+    if orig in _PINYIN_FALLBACK:
+        return _PINYIN_FALLBACK[orig]
     return re.sub(r"_enable$", "", orig)
 
 MAX_LINE = 8000  # 单行兜底长度，超过就截断并记日志
@@ -274,8 +315,9 @@ def read_source(path: Path) -> tuple[dict[str, str], dict[str, list[str]], list[
 
 
 def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str, str]]:
-    """[Argument] -> [(Surge 名, 原名, 类型, 默认值, 中文标签)]"""
+    """[Argument] -> [(Surge 名(中文), 原名, 类型, 默认值, 中文标签)]"""
     out: list[tuple[str, str, str, str, str]] = []
+    seen: dict[str, int] = {}
     for raw in lines:
         line = raw.strip()
         if not line or line.startswith("#") or "=" not in line:
@@ -293,19 +335,29 @@ def parse_arguments(lines: list[str]) -> list[tuple[str, str, str, str, str]]:
         else:  # select / input / text ...
             default = unquote(parts[1]) if len(parts) > 1 else ""
 
-        # 抽 tag= 的中文标签，Surge 参数名只能 ASCII，中文靠 desc 露面
+        # 抽 tag= 的中文标签
         tag = ""
         for p in parts[1:]:
             if p.lower().startswith("tag="):
                 tag = unquote(p[4:]).strip()
                 break
-        tag = re.sub(r"[-_]?(?:脚本)?开关$", "", tag).strip()
 
-        out.append((surge_name(name), name, kind, default, tag))
+        label = surge_name(name, tag)
+        if label in seen:
+            seen[label] += 1
+            label = f"{label}{seen[label]}"
+        else:
+            seen[label] = 1
+
+        out.append((label, name, kind, default, tag))
     return out
 
 
-def build_argument_expr(orig_names: list[str], bool_names: set[str]) -> str | None:
+def build_argument_expr(
+    orig_names: list[str],
+    bool_names: set[str],
+    label_map: dict[str, str],
+) -> str | None:
     """
     原名列表 -> Surge 脚本行的 argument= 值（含外层双引号）
 
@@ -322,7 +374,7 @@ def build_argument_expr(orig_names: list[str], bool_names: set[str]) -> str | No
     parts = []
     for o in orig_names:
         key = '\\"' + o + '\\":'
-        ph = "{{{" + surge_name(o) + "}}}"
+        ph = "{{{" + label_map.get(o, surge_name(o)) + "}}}"
         if o in bool_names:
             parts.append(key + ph)
         else:
@@ -524,6 +576,7 @@ def convert_script_line(
     used_names: set[str],
     dropped: list[str],
     bool_names: set[str],
+    label_map: dict[str, str],
 ) -> str | None:
     s = line.strip()
     if not s or s.startswith("#"):
@@ -582,7 +635,7 @@ def convert_script_line(
             continue
         surge_params.append(f"{k}={loon_placeholder_to_surge(v)}")
 
-    arg_expr = build_argument_expr(arg_names, bool_names)
+    arg_expr = build_argument_expr(arg_names, bool_names, label_map)
     if arg_expr:
         surge_params.append(f"argument={arg_expr}")
 
@@ -647,6 +700,7 @@ def main() -> int:
     meta, sections, order = read_source(src)
     arglist = parse_arguments(sections.get("argument", []))
     bool_names = {o for _, o, k, _, _ in arglist if k == "switch"}
+    label_map = {o: s for s, o, _, _, _ in arglist}
     dropped: list[str] = []
     log: list[str] = []
 
@@ -666,7 +720,7 @@ def main() -> int:
     used_names: set[str] = set()
     script_out: list[str] = []
     for ln in sections.get("script", []):
-        got = convert_script_line(ln, used_names, dropped, bool_names)
+        got = convert_script_line(ln, used_names, dropped, bool_names, label_map)
         if got is not None:
             script_out.append(got)
 
@@ -699,14 +753,15 @@ def main() -> int:
     if arglist and not args.no_arguments:
         out.append("#!arguments=" + ",".join(f"{s}:{d}" for s, _, _, d, _ in arglist))
         out.append(
-            "#!arguments-desc=0=关 1=开，改完需重新加载模块才会生效。"
-            "参数名即 APP 拼音；bili_ 哔哩哔哩 / netease_ 网易云音乐 / spotify_ Spotify 的界面开关。"
+            "#!arguments-desc=开关值：0=关，1=开。\\n"
+            "改完需要在 Surge 里重新加载本模块才会生效。\\n"
+            "参数名就是 APP 中文名；「贴吧-」「B站-」「网易云-」「Spotify-」开头的属于该 APP 的细分开关。"
         )
         out.append("")
-        out.append("# ---------------- 开关对照表 ----------------")
+        out.append("# ---------------- 开关原名对照 ----------------")
         for s, o, _, d, t in arglist:
             alias = f"   <- {o}" if s != o else ""
-            out.append(f"# {s} = {d}" + (f"    {t}" if t else "") + alias)
+            out.append(f"# {s} = {d}{alias}")
 
     out.append("")
     out.append("# ============================================================")

@@ -6,99 +6,99 @@
 #!homepage=https://github.com/fmz200/wool_scripts
 #!tag=去广告, fmz200, 奶思
 #!system=ios
-#!date=2026-11-24 07:54:21
+#!date=2026-11-24 07:57:29
 #!tg-channel=https://t.me/inaisi
 #!remark=下方的所有规则都标注了对应的hostname，可能存在错误或者遗漏，欢迎反馈。对于无法/可选MITM的hostname都特别做了“如开启可自行添加主机名”提示，如果提示后面没有标注主机名则包含所有主机名，否则只包含提示语后面的主机名。
 #!raw-url=https://raw.githubusercontent.com/woqunimaxr/AD/main/surge/blockAds.sgmodule
-#!arguments=12306:1,xinyongka51:1,ys555:1,alibaba:1,alipan:1,iqiyi:1,baidumap:1,tieba_novideo:0,bohejiankang:1,bili_updisplay:show,bili_purifycomment:1,bili_optreq:1,bili_sponsor:1,bili_loglevel:error,bilibilimanga:1,blued:1,caixin:1,cainiao:1,dianping:1,didi:1,dianyinglieshou:1,dingdong:1,donghuafeng:1,feike:1,fenbi:1,flightradar24:1,hanglv:1,hema:1,huifu:1,ithome:1,jianhang:1,jingdong:1,jingxi:1,kuan:1,kuwo:1,quark:1,kuaishou:1,keep:1,lvtu:1,lawson:1,mafengwo:1,maidanba:1,maimai:1,mangotv:1,meiyou:1,pupu:1,job51:1,quda:1,renren:1,reddit:1,smzdm:1,suda:1,soul:1,spotify_tab:1,spotify_handoff:1,taobao:1,txnews:1,vgtime:1,youdaocidian:1,netease_my:1,netease_dt:0,netease_fx:1,netease_greet:1,netease_rank:0,netease_daily:0,netease_scvpt:0,netease_recent:0,netease_radar:1,netease_partner:0,netease_personal:1,netease_yours:1,wechatlink:1,winnipeg:1,xiangjiao:1,xiaohongshu:1,xiaomang:1,mishop:1,xiaotuchong:1,youku:1,youxi:1,youtube:1,bus:1,zhihu:1,airchina:1,zhuanzhuan:1
-#!arguments-desc=0=关 1=开，改完需重新加载模块才会生效。参数名即 APP 拼音；bili_ 哔哩哔哩 / netease_ 网易云音乐 / spotify_ Spotify 的界面开关。
+#!arguments=12306:1,51信用卡管家:1,555影视:1,阿里巴巴:1,阿里云盘:1,爱奇艺:1,百度地图:1,贴吧-推荐页不显示视频贴:0,薄荷健康:1,B站-动态最常访问:show,B站-过滤置顶评论:1,B站-优化评论区加载:1,B站-空降助手:1,B站-日志等级:error,哔哩哔哩漫画:1,Blued:1,财新:1,菜鸟裹裹:1,大众点评:1,滴滴出行:1,电影猎手:1,叮咚买菜:1,动画疯:1,飞客茶馆:1,粉笔:1,Flightradar24:1,航旅纵横:1,盒马:1,汇付天下:1,IT之家:1,建行生活:1,京东:1,京喜:1,酷安:1,酷我音乐:1,夸克:1,快手联盟:1,keep:1,旅途随身听:1,罗森点点:1,马蜂窝:1,买单吧:1,脉脉:1,芒果TV:1,美柚:1,朴朴超市:1,前程无忧:1,去哒:1,人人视频:1,Reddit:1,什么值得买:1,苏打校园APP:1,Soul:1,Spotify-移除底栏按钮:1,Spotify-设备接力:1,淘宝:1,腾讯新闻:1,vgTime:1,网易有道词典:1,网易云-隐藏漫游标签:1,网易云-隐藏笔记标签:0,网易云-隐藏发现标签:1,网易云-隐藏问候语:1,网易云-隐藏排行榜:0,网易云-隐藏每日推荐:0,网易云-隐藏推荐歌单:0,网易云-隐藏最近常听:0,网易云-隐藏雷达歌单:1,网易云-隐藏音乐合伙人:0,网易云-隐藏专属推荐:1,网易云-隐藏你的歌单:1,解除微信链接限制:1,温尼伯站:1,香蕉是一种水果:1,小红书:1,小芒:1,小米商城:1,小兔充充:1,优酷:1,悠洗APP:1,YouTube:1,掌上公交:1,知乎:1,中国国际航空:1,转转:1
+#!arguments-desc=开关值：0=关，1=开。\n改完需要在 Surge 里重新加载本模块才会生效。\n参数名就是 APP 中文名；「贴吧-」「B站-」「网易云-」「Spotify-」开头的属于该 APP 的细分开关。
 
-# ---------------- 开关对照表 ----------------
-# 12306 = 1    12306   <- 12306_enable
-# xinyongka51 = 1    51信用卡管家   <- 51xyk_enable
-# ys555 = 1    555影视   <- 555_enable
-# alibaba = 1    阿里巴巴   <- albb_enable
-# alipan = 1    阿里云盘   <- alyp_enable
-# iqiyi = 1    爱奇艺   <- aiqiyi_enable
-# baidumap = 1    百度地图   <- bdduditu_enable
-# tieba_novideo = 0    百度贴吧-推荐页不展示视频贴   <- per_filter_video_thread
-# bohejiankang = 1    薄荷健康   <- bohejmkh_enable
-# bili_updisplay = show    [动态]中[最常访问]的显示方式   <- displayUpList
-# bili_purifycomment = 1    [评论区]过滤置顶评论广告   <- purifyComment
-# bili_optreq = 1    优化评论区加载   <- optimizeRequest
-# bili_sponsor = 1    空降助手   <- sponsorBlock
-# bili_loglevel = error    日志等级   <- logLevel
-# bilibilimanga = 1    哔哩哔哩漫画   <- bilimanhua_enable
-# blued = 1    Blued   <- blued_enable
-# caixin = 1    财新   <- cdxb_enable
-# cainiao = 1    菜鸟裹裹   <- cdnngogo_enable
-# dianping = 1    大众点评   <- davsdmpk_enable
-# didi = 1    滴滴出行   <- didiiuxk_enable
-# dianyinglieshou = 1    电影猎手   <- dyls_enable
-# dingdong = 1    叮咚买菜   <- ddmc_enable
-# donghuafeng = 1    动画疯   <- dshxfg_enable
-# feike = 1    飞客茶馆   <- fwke_enable
-# fenbi = 1    粉笔   <- ffbi_enable
-# flightradar24 = 1    Flightradar24   <- flightradar24_enable
-# hanglv = 1    航旅纵横   <- hlzh_enable
-# hema = 1    盒马   <- hema_enable
-# huifu = 1    汇付天下   <- hftx_enable
-# ithome = 1    IT之家   <- itzj_enable
-# jianhang = 1    建行生活   <- jhsh_enable
-# jingdong = 1    京东   <- jkds_enable
-# jingxi = 1    京喜   <- jkxi_enable
-# kuan = 1    酷安   <- kuan_enable
-# kuwo = 1    酷我音乐   <- kuwoybyt_enable
-# quark = 1    夸克   <- kxke_enable
-# kuaishou = 1    快手联盟   <- glgclmmg_enable
-# keep = 1    keep   <- keep_enable
-# lvtu = 1    旅途随身听   <- lvtusvuftk_enable
-# lawson = 1    罗森点点   <- lawson_enable
-# mafengwo = 1    马蜂窝   <- mafgwo_enable
-# maidanba = 1    买单吧   <- mddjba_enable
-# maimai = 1    脉脉   <- mdmd_enable
-# mangotv = 1    芒果TV   <- mhgotv_enable
-# meiyou = 1    美柚   <- meiyou_enable
-# pupu = 1    朴朴超市   <- pupuicui_enable
-# job51 = 1    前程无忧   <- 51job_enable
-# quda = 1    去哒   <- quda_enable
-# renren = 1    人人视频   <- rfrfuipk_enable
-# reddit = 1    Reddit   <- reddit_enable
-# smzdm = 1    什么值得买   <- smzdm_enable
-# suda = 1    苏打校园APP   <- sudaxnyr_enable
-# soul = 1    Soul   <- soul_enable
-# spotify_tab = 1    Spotify-移除底栏创建按钮   <- tab
-# spotify_handoff = 1    Spotify-启用Apple设备接力   <- useractivity
-# taobao = 1    淘宝   <- tcbc_enable
-# txnews = 1    腾讯新闻   <- tgxyxbwf_enable
-# vgtime = 1    vgTime   <- vgtime_enable
-# youdaocidian = 1    网易有道词典   <- whyiyzdccidm_enable
-# netease_my = 1    [隐藏底部]漫游标签   <- MY
-# netease_dt = 0    [隐藏底部]笔记标签   <- DT
-# netease_fx = 1    [隐藏底部]发现标签   <- FX
-# netease_greet = 1    [隐藏首页]问候语   <- PRGG
-# netease_rank = 0    [隐藏首页]排行榜   <- PRRK
-# netease_daily = 0    [隐藏首页]每日推荐   <- PRDRD
-# netease_scvpt = 0    [隐藏首页]推荐歌单   <- PRSCVPT
-# netease_recent = 0    [隐藏首页]最近常听   <- PRST
-# netease_radar = 1    [隐藏首页]雷达歌单   <- PRRR
-# netease_partner = 0    [隐藏首页]音乐合伙人   <- HMPR
-# netease_personal = 1    [隐藏首页]推荐专属歌单   <- PRMST
-# netease_yours = 1    [隐藏首页]你的专属歌单   <- PRCN
-# wechatlink = 1    解除微信链接限制   <- lmjpxmvi_enable
-# winnipeg = 1    温尼伯站   <- wfnibovj_enable
-# xiangjiao = 1    香蕉是一种水果   <- xljnuiyivsuvgo_enable
-# xiaohongshu = 1    小红书   <- xhs_enable
-# xiaomang = 1    小芒   <- xnmh_enable
-# mishop = 1    小米商城   <- xnmiuhig_enable
-# xiaotuchong = 1    小兔充充   <- xntuisis_enable
-# youku = 1    优酷   <- yzku_enable
-# youxi = 1    悠洗APP   <- yzxiapp_enable
-# youtube = 1    YouTube   <- youtube_enable
-# bus = 1    掌上公交   <- vhuhgsjn_enable
-# zhihu = 1    知乎   <- vihu_enable
-# airchina = 1    中国国际航空   <- vsgogojihhks_enable
-# zhuanzhuan = 1    转转   <- vrvr_enable
+# ---------------- 开关原名对照 ----------------
+# 12306 = 1   <- 12306_enable
+# 51信用卡管家 = 1   <- 51xyk_enable
+# 555影视 = 1   <- 555_enable
+# 阿里巴巴 = 1   <- albb_enable
+# 阿里云盘 = 1   <- alyp_enable
+# 爱奇艺 = 1   <- aiqiyi_enable
+# 百度地图 = 1   <- bdduditu_enable
+# 贴吧-推荐页不显示视频贴 = 0   <- per_filter_video_thread
+# 薄荷健康 = 1   <- bohejmkh_enable
+# B站-动态最常访问 = show   <- displayUpList
+# B站-过滤置顶评论 = 1   <- purifyComment
+# B站-优化评论区加载 = 1   <- optimizeRequest
+# B站-空降助手 = 1   <- sponsorBlock
+# B站-日志等级 = error   <- logLevel
+# 哔哩哔哩漫画 = 1   <- bilimanhua_enable
+# Blued = 1   <- blued_enable
+# 财新 = 1   <- cdxb_enable
+# 菜鸟裹裹 = 1   <- cdnngogo_enable
+# 大众点评 = 1   <- davsdmpk_enable
+# 滴滴出行 = 1   <- didiiuxk_enable
+# 电影猎手 = 1   <- dyls_enable
+# 叮咚买菜 = 1   <- ddmc_enable
+# 动画疯 = 1   <- dshxfg_enable
+# 飞客茶馆 = 1   <- fwke_enable
+# 粉笔 = 1   <- ffbi_enable
+# Flightradar24 = 1   <- flightradar24_enable
+# 航旅纵横 = 1   <- hlzh_enable
+# 盒马 = 1   <- hema_enable
+# 汇付天下 = 1   <- hftx_enable
+# IT之家 = 1   <- itzj_enable
+# 建行生活 = 1   <- jhsh_enable
+# 京东 = 1   <- jkds_enable
+# 京喜 = 1   <- jkxi_enable
+# 酷安 = 1   <- kuan_enable
+# 酷我音乐 = 1   <- kuwoybyt_enable
+# 夸克 = 1   <- kxke_enable
+# 快手联盟 = 1   <- glgclmmg_enable
+# keep = 1   <- keep_enable
+# 旅途随身听 = 1   <- lvtusvuftk_enable
+# 罗森点点 = 1   <- lawson_enable
+# 马蜂窝 = 1   <- mafgwo_enable
+# 买单吧 = 1   <- mddjba_enable
+# 脉脉 = 1   <- mdmd_enable
+# 芒果TV = 1   <- mhgotv_enable
+# 美柚 = 1   <- meiyou_enable
+# 朴朴超市 = 1   <- pupuicui_enable
+# 前程无忧 = 1   <- 51job_enable
+# 去哒 = 1   <- quda_enable
+# 人人视频 = 1   <- rfrfuipk_enable
+# Reddit = 1   <- reddit_enable
+# 什么值得买 = 1   <- smzdm_enable
+# 苏打校园APP = 1   <- sudaxnyr_enable
+# Soul = 1   <- soul_enable
+# Spotify-移除底栏按钮 = 1   <- tab
+# Spotify-设备接力 = 1   <- useractivity
+# 淘宝 = 1   <- tcbc_enable
+# 腾讯新闻 = 1   <- tgxyxbwf_enable
+# vgTime = 1   <- vgtime_enable
+# 网易有道词典 = 1   <- whyiyzdccidm_enable
+# 网易云-隐藏漫游标签 = 1   <- MY
+# 网易云-隐藏笔记标签 = 0   <- DT
+# 网易云-隐藏发现标签 = 1   <- FX
+# 网易云-隐藏问候语 = 1   <- PRGG
+# 网易云-隐藏排行榜 = 0   <- PRRK
+# 网易云-隐藏每日推荐 = 0   <- PRDRD
+# 网易云-隐藏推荐歌单 = 0   <- PRSCVPT
+# 网易云-隐藏最近常听 = 0   <- PRST
+# 网易云-隐藏雷达歌单 = 1   <- PRRR
+# 网易云-隐藏音乐合伙人 = 0   <- HMPR
+# 网易云-隐藏专属推荐 = 1   <- PRMST
+# 网易云-隐藏你的歌单 = 1   <- PRCN
+# 解除微信链接限制 = 1   <- lmjpxmvi_enable
+# 温尼伯站 = 1   <- wfnibovj_enable
+# 香蕉是一种水果 = 1   <- xljnuiyivsuvgo_enable
+# 小红书 = 1   <- xhs_enable
+# 小芒 = 1   <- xnmh_enable
+# 小米商城 = 1   <- xnmiuhig_enable
+# 小兔充充 = 1   <- xntuisis_enable
+# 优酷 = 1   <- yzku_enable
+# 悠洗APP = 1   <- yzxiapp_enable
+# YouTube = 1   <- youtube_enable
+# 掌上公交 = 1   <- vhuhgsjn_enable
+# 知乎 = 1   <- vihu_enable
+# 中国国际航空 = 1   <- vsgogojihhks_enable
+# 转转 = 1   <- vrvr_enable
 
 # ============================================================
 # 由 Loon 插件自动转换  blockAds.plugin
@@ -5602,12 +5602,12 @@ s_12306 = type=http-request,pattern=(?i)^https?://ad\.12306\.cn/ad/ser/getAdList
 
 # > 51信用卡管家
 # hostname = api.u51.com
-s_51card = type=http-response,pattern=(?i)^https?://api\.u51\.com/liabilitygateway/api/v\d/homepage/liabilityline,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js,timeout=60,requires-body=true,argument="{\"51xyk_enable\":{{{xinyongka51}}}}"
-s_51card2 = type=http-response,pattern=(?i)^https?://api\.u51\.com/generic-config-gateway/api/v\d/guanjia/me-tab2/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js,timeout=60,requires-body=true,argument="{\"51xyk_enable\":{{{xinyongka51}}}}"
+s_51card = type=http-response,pattern=(?i)^https?://api\.u51\.com/liabilitygateway/api/v\d/homepage/liabilityline,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js,timeout=60,requires-body=true,argument="{\"51xyk_enable\":{{{51信用卡管家}}}}"
+s_51card2 = type=http-response,pattern=(?i)^https?://api\.u51\.com/generic-config-gateway/api/v\d/guanjia/me-tab2/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js,timeout=60,requires-body=true,argument="{\"51xyk_enable\":{{{51信用卡管家}}}}"
 
 # > 555影视
 # hostname = vip7.fzwdyy.cn, *.qyfxgd.cn, *.weilai555.com, *.ecoliving168.com
-s_555Ad = type=http-response,pattern=(?i)^https?://[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){1,3}(:\d+)?/api/v\d/movie/index_recommend,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/555Ad.js,timeout=60,requires-body=true,argument="{\"555_enable\":{{{ys555}}}}"
+s_555Ad = type=http-response,pattern=(?i)^https?://[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){1,3}(:\d+)?/api/v\d/movie/index_recommend,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/555Ad.js,timeout=60,requires-body=true,argument="{\"555_enable\":{{{555影视}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ 6 ✅ <<<<<<<<<<<<<<
@@ -5626,96 +5626,96 @@ s_555Ad = type=http-response,pattern=(?i)^https?://[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+
 
 # > 阿里巴巴
 # hostname = acs.m.taobao.com, heic.alicdn.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com
-cainiao = type=http-response,pattern=(?i)^https://guide-acs\.m\.taobao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{alibaba}}}}"
-myBlockAds = type=http-response,pattern=(?i)^https://guide-acs\.m\.taobao\.com/gw/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{alibaba}}}}"
-myBlockAds2 = type=http-response,pattern=(?i)^https://poplayer\.template\.alibaba\.com/\w+\.json,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{alibaba}}}}"
+cainiao = type=http-response,pattern=(?i)^https://guide-acs\.m\.taobao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{阿里巴巴}}}}"
+myBlockAds = type=http-response,pattern=(?i)^https://guide-acs\.m\.taobao\.com/gw/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{阿里巴巴}}}}"
+myBlockAds2 = type=http-response,pattern=(?i)^https://poplayer\.template\.alibaba\.com/\w+\.json,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"albb_enable\":{{{阿里巴巴}}}}"
 
 # > 阿里云盘
 # hostname = api.alipan.com, member.alipan.com
-adrive = type=http-response,pattern=(?i)^https://api\.alipan\.com/apps/v2/users/home/(news|widgets),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/adrive/adrive.js,timeout=60,requires-body=true,argument="{\"alyp_enable\":{{{alipan}}}}"
-adrive2 = type=http-response,pattern=(?i)^https://member\.alipan\.com/v1/users/onboard_list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/adrive/adrive.js,timeout=60,requires-body=true,argument="{\"alyp_enable\":{{{alipan}}}}"
+adrive = type=http-response,pattern=(?i)^https://api\.alipan\.com/apps/v2/users/home/(news|widgets),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/adrive/adrive.js,timeout=60,requires-body=true,argument="{\"alyp_enable\":{{{阿里云盘}}}}"
+adrive2 = type=http-response,pattern=(?i)^https://member\.alipan\.com/v1/users/onboard_list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/adrive/adrive.js,timeout=60,requires-body=true,argument="{\"alyp_enable\":{{{阿里云盘}}}}"
 
 # > 爱奇艺
 # hostname = -i.vip.iqiyi.com, *.iqiyi.com
 # 首页信息流广告
-cnftp = type=http-response,pattern=(?i)^https?://[\d\.]+/3f1/cards\.iqiyi\.com/(views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
-cnftp2 = type=http-response,pattern=(?i)^https?://access\.if\.iqiyi\.com/3f1/cards\.iqiyi\.com/(views_category/3\.0/category_home|views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
-cnftp3 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_category/3\.0/(category_home|categorylib_content|film_hybrid)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
-cnftp4 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/(views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp = type=http-response,pattern=(?i)^https?://[\d\.]+/3f1/cards\.iqiyi\.com/(views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
+cnftp2 = type=http-response,pattern=(?i)^https?://access\.if\.iqiyi\.com/3f1/cards\.iqiyi\.com/(views_category/3\.0/category_home|views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
+cnftp3 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_category/3\.0/(category_home|categorylib_content|film_hybrid)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
+cnftp4 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/(views_home/3\.0/qy_home|waterfall/3\.0/feed)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 播放详情页
-cnftp5 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_plt/3\.0/player_tabs_v2\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp5 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_plt/3\.0/player_tabs_v2\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 搜索页列表
-cnftp6 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_search/3\.0/(hot_query_)?search\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp6 = type=http-response,pattern=(?i)^https?://cards\.iqiyi\.com/views_search/3\.0/(hot_query_)?search\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 评论区
-cnftp7 = type=http-response,pattern=(?i)^https?://comment-card\.iqiyi\.com/views_comment/3\.0/long_video_comments\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp7 = type=http-response,pattern=(?i)^https?://comment-card\.iqiyi\.com/views_comment/3\.0/long_video_comments\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 我的页面菜单
-cnftp8 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/aggregate/3\.0/getMyMenus\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp8 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/aggregate/3\.0/getMyMenus\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 首页左上角天气
-cnftp9 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/control/3\.0/init_proxy\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp9 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/control/3\.0/init_proxy\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 通用控制,各tab页二楼
-cnftp10 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/fusion/3\.0/common_switch\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp10 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/fusion/3\.0/common_switch\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 底部tab、顶部tab
-cnftp11 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/views/3\.0/(bottom_theme|home_top_menu)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp11 = type=http-response,pattern=(?i)^https?://iface2\.iqiyi\.com/views/3\.0/(bottom_theme|home_top_menu)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 搜索框填充词
-cnftp12 = type=http-response,pattern=(?i)^https?://search\.video\.iqiyi\.com/q\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp12 = type=http-response,pattern=(?i)^https?://search\.video\.iqiyi\.com/q\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 # 开屏广告,播放广告
-cnftp13 = type=http-response,pattern=(?i)^https?://(kjp|t7z)\.cupid\.iqiyi\.com/mixer\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{iqiyi}}}}"
+cnftp13 = type=http-response,pattern=(?i)^https?://(kjp|t7z)\.cupid\.iqiyi\.com/mixer\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"aiqiyi_enable\":{{{爱奇艺}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ B ✅ <<<<<<<<<<<<<<
 
 # > 百度地图
 # hostname = dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com
-baidumap = type=http-response,pattern=(?i)^https?://newclient\.map\.baidu\.com/client/phpui2/\?qt=ads,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js,timeout=60,requires-body=true,argument="{\"bdduditu_enable\":{{{baidumap}}}}"
+baidumap = type=http-response,pattern=(?i)^https?://newclient\.map\.baidu\.com/client/phpui2/\?qt=ads,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js,timeout=60,requires-body=true,argument="{\"bdduditu_enable\":{{{百度地图}}}}"
 
 # > 百度贴吧
 # hostname = tiebac.baidu.com
 tieba-json = type=http-response,pattern=(?i)^http(s://tiebac|://c\.tieba)\.baidu\.com/(c/(s/sync|f/(ad/getSplashAd|frs/(page|threadlist|generalTabList)|pb/(pic)?page|excellent/personalized))$|tiebaads/commonbatch\?),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-json.js,timeout=10,requires-body=true
-tieba-proto = type=http-response,pattern=(?i)^http(s://tiebac|://c\.tieba)\.baidu\.com/c/(b/ad/adBid|f/(frs/(page|threadlist|generalTabList)|ad/getFeedAd|pb/page|excellent/personalized))\?cmd,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-proto.js,timeout=10,requires-body=true,binary-body-mode=true,argument="{\"per_filter_video_thread\":\"{{{tieba_novideo}}}\"}"
+tieba-proto = type=http-response,pattern=(?i)^http(s://tiebac|://c\.tieba)\.baidu\.com/c/(b/ad/adBid|f/(frs/(page|threadlist|generalTabList)|ad/getFeedAd|pb/page|excellent/personalized))\?cmd,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-proto.js,timeout=10,requires-body=true,binary-body-mode=true,argument="{\"per_filter_video_thread\":\"{{{贴吧-推荐页不显示视频贴}}}\"}"
 
 # > 薄荷健康
 # hostname = api.boohee.com, bohe.sfo-tx-shanghai-01.saas.sensorsdata.cn, lego.boohee.com, status.boohee.com
 # 记录 大家都在看data.recom_cards / 底部按钮data.recom_btns
-bohe_ads = type=http-response,pattern=(?i)^https://api\.boohee\.com/meta-interface/v2/index\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{bohejiankang}}}}"
+bohe_ads = type=http-response,pattern=(?i)^https://api\.boohee\.com/meta-interface/v2/index\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{薄荷健康}}}}"
 # 广场 推荐 红标data.tabs[1].badge /轮播图data.recommend_ads
-bohe_ads2 = type=http-response,pattern=(?i)^https://api\.boohee\.com/meta-interface/v1/index/plaza\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{bohejiankang}}}}"
+bohe_ads2 = type=http-response,pattern=(?i)^https://api\.boohee\.com/meta-interface/v1/index/plaza\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{薄荷健康}}}}"
 # 代谢中心 顶部轮播图top_banner / 免费问诊推广diagnos_config / 合作医疗机构partner_hospital / 医患问答question_answer / 热门商品product / 品牌大事件brand_story
-bohe_ads3 = type=http-response,pattern=(?i)^https://api\.boohee\.com/open-interface/v1/string/market_page\?title=metabolism_config$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{bohejiankang}}}}"
+bohe_ads3 = type=http-response,pattern=(?i)^https://api\.boohee\.com/open-interface/v1/string/market_page\?title=metabolism_config$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js,timeout=60,requires-body=true,argument="{\"bohejmkh_enable\":{{{薄荷健康}}}}"
 
 # > 哔哩哔哩
 # hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, www.bilibili.com, line3-h5-mobile-api.biligame.com
-bilibili.protobuf.request = type=http-request,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(app\.viewunite\.v1\.View/View|main\.community\.reply\.v1\.Reply/MainList)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js,requires-body=true,binary-body-mode=true,timeout=10,argument="{\"purifyComment\":{{{bili_purifycomment}}},\"logLevel\":\"{{{bili_loglevel}}}\",\"optimizeRequest\":{{{bili_optreq}}}}"
-bilibili.protobuf.request2 = type=http-request,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(community\.service\.dm\.v1\.DM/DmSegMobile|app\.view(unite)?\.v1\.View/ViewProgress)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js,requires-body=true,binary-body-mode=true,timeout=10,argument="{\"logLevel\":\"{{{bili_loglevel}}}\",\"sponsorBlock\":{{{bili_sponsor}}}}"
+bilibili.protobuf.request = type=http-request,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(app\.viewunite\.v1\.View/View|main\.community\.reply\.v1\.Reply/MainList)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js,requires-body=true,binary-body-mode=true,timeout=10,argument="{\"purifyComment\":{{{B站-过滤置顶评论}}},\"logLevel\":\"{{{B站-日志等级}}}\",\"optimizeRequest\":{{{B站-优化评论区加载}}}}"
+bilibili.protobuf.request2 = type=http-request,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(community\.service\.dm\.v1\.DM/DmSegMobile|app\.view(unite)?\.v1\.View/ViewProgress)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js,requires-body=true,binary-body-mode=true,timeout=10,argument="{\"logLevel\":\"{{{B站-日志等级}}}\",\"sponsorBlock\":{{{B站-空降助手}}}}"
 bilibili.json = type=http-response,pattern=^https://api\.live\.bilibili\.com/xlive/(app-interface/v2/index/feed|app-room/v1/index/getInfoBy(Room|User))\?,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.json.js,requires-body=true
 webpage.bilibili = type=http-response,pattern=^https://www\.bilibili\.com/blackboard/era/[^?]+\.html\?,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/webpage.bilibili.js,requires-body=true
-bilibili.protobuf.response = type=http-response,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(app\.(show\.v1\.Popular/Index|dynamic\.v2\.Dynamic/DynAll|view(unite)?\.v1\.View/(View|ViewProgress|RelatesFeed|AIRelateAsync)|playurl\.v1\.PlayURL/PlayView|playerunite\.v1\.Player/PlayViewUnite)|polymer\.app\.search\.v1\.Search/SearchAll|community\.service\.dm\.v1\.DM/DmView|main\.community\.reply\.v1\.Reply/MainList|pgc\.gateway\.player\.v2\.PlayURL/PlayView)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.response.js,requires-body=true,binary-body-mode=true,argument="{\"displayUpList\":\"{{{bili_updisplay}}}\",\"purifyComment\":{{{bili_purifycomment}}},\"sponsorBlock\":{{{bili_sponsor}}},\"logLevel\":\"{{{bili_loglevel}}}\"}"
+bilibili.protobuf.response = type=http-response,pattern=^https://(grpc\.biliapi\.net|app\.bilibili\.com)/bilibili\.(app\.(show\.v1\.Popular/Index|dynamic\.v2\.Dynamic/DynAll|view(unite)?\.v1\.View/(View|ViewProgress|RelatesFeed|AIRelateAsync)|playurl\.v1\.PlayURL/PlayView|playerunite\.v1\.Player/PlayViewUnite)|polymer\.app\.search\.v1\.Search/SearchAll|community\.service\.dm\.v1\.DM/DmView|main\.community\.reply\.v1\.Reply/MainList|pgc\.gateway\.player\.v2\.PlayURL/PlayView)$,script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.response.js,requires-body=true,binary-body-mode=true,argument="{\"displayUpList\":\"{{{B站-动态最常访问}}}\",\"purifyComment\":{{{B站-过滤置顶评论}}},\"sponsorBlock\":{{{B站-空降助手}}},\"logLevel\":\"{{{B站-日志等级}}}\"}"
 
 # > 哔哩哔哩漫画
 # hostname = manga.bilibili.com, i*.hdslb.com
-bilibiliManga = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/user\.v\d\.User/UCenterConf,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{bilibilimanga}}}}"
-bilibiliManga2 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/user\.v\d\.User/GetInitInfo,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{bilibilimanga}}}}"
-bilibiliManga3 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/comic\.v\d\.Home/HomeFeed,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{bilibilimanga}}}}"
-bilibiliManga4 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/comic\.v\d\.Comment/Main,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{bilibilimanga}}}}"
+bilibiliManga = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/user\.v\d\.User/UCenterConf,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{哔哩哔哩漫画}}}}"
+bilibiliManga2 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/user\.v\d\.User/GetInitInfo,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{哔哩哔哩漫画}}}}"
+bilibiliManga3 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/comic\.v\d\.Home/HomeFeed,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{哔哩哔哩漫画}}}}"
+bilibiliManga4 = type=http-response,pattern=(?i)^https?://manga\.bilibili\.com/twirp/comic\.v\d\.Comment/Main,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js,timeout=60,requires-body=true,argument="{\"bilimanhua_enable\":{{{哔哩哔哩漫画}}}}"
 
 # > Blued
 # hostname = social.blued.cn
 # 登录后个人界面广告
-blued = type=http-response,pattern=(?i)^https?://social\.blued\.cn/users/.+/more/ios\?v=2,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/blued.js,timeout=60,requires-body=true,argument="{\"blued_enable\":{{{blued}}}}"
+blued = type=http-response,pattern=(?i)^https?://social\.blued\.cn/users/.+/more/ios\?v=2,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/blued.js,timeout=60,requires-body=true,argument="{\"blued_enable\":{{{Blued}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ C ✅ <<<<<<<<<<<<<<
 
 # > 财新网
 # hostname = gg.caixin.com
-caixinAd = type=http-response,pattern=(?i)^https?://gg\.caixin\.com/s\?z=caixin&op=1&c=3362,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/caixin/caixinAd.js,timeout=60,requires-body=true,argument="{\"cdxb_enable\":{{{caixin}}}}"
+caixinAd = type=http-response,pattern=(?i)^https?://gg\.caixin\.com/s\?z=caixin&op=1&c=3362,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/caixin/caixinAd.js,timeout=60,requires-body=true,argument="{\"cdxb_enable\":{{{财新}}}}"
 
 # > 菜鸟裹裹
 # hostname = cn-acs.m.cainiao.com, amdc.m.taobao.com
-header = type=http-response,pattern=(?i)^https?://amdc\.m\.taobao\.com/amdc/mobileDispatch$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/header.js,timeout=60,argument="{\"cdnngogo_enable\":{{{cainiao}}}}"
-cainiao2 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.m?show\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{cainiao}}}}"
-cainiao3 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.nbpresentation\.(pickup\.empty\.page|protocol\.homepage)\.get\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{cainiao}}}}"
+header = type=http-response,pattern=(?i)^https?://amdc\.m\.taobao\.com/amdc/mobileDispatch$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/header.js,timeout=60,argument="{\"cdnngogo_enable\":{{{菜鸟裹裹}}}}"
+cainiao2 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.m?show\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{菜鸟裹裹}}}}"
+cainiao3 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.nbpresentation\.(pickup\.empty\.page|protocol\.homepage)\.get\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{菜鸟裹裹}}}}"
 # 消息中心
-cainiao4 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.nbfriend\.message\.conversation\.list\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{cainiao}}}}"
+cainiao4 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.nbfriend\.message\.conversation\.list\.cn,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cainiao/cainiao.js,timeout=60,requires-body=true,argument="{\"cdnngogo_enable\":{{{菜鸟裹裹}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ D ✅ <<<<<<<<<<<<<<
@@ -5723,41 +5723,41 @@ cainiao4 = type=http-response,pattern=(?i)^https?://cn-acs\.m\.cainiao\.com/gw/m
 # > 大众点评
 # hostname = 103.37.155.60, *.dianping.com, img.meituan.net, p.meituan.com, rms.meituan.com, www.dpfile.com, awp-assets.meituan.net, s3plus.meituan.net, p*.meituan.net, ddplus.meituan.net
 # 开屏广告
-dianping = type=http-response,pattern=(?i)^https?://img\.meituan\.net/(?>dpmobile|goodsawardpic)/,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js,timeout=60,requires-body=true,argument="{\"davsdmpk_enable\":{{{dianping}}}}"
-dianping2 = type=http-response,pattern=(?i)^https?://ddplus\.meituan\.net/v\d/mss_\w+/picassovc,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js,timeout=60,requires-body=true,argument="{\"davsdmpk_enable\":{{{dianping}}}}"
+dianping = type=http-response,pattern=(?i)^https?://img\.meituan\.net/(?>dpmobile|goodsawardpic)/,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js,timeout=60,requires-body=true,argument="{\"davsdmpk_enable\":{{{大众点评}}}}"
+dianping2 = type=http-response,pattern=(?i)^https?://ddplus\.meituan\.net/v\d/mss_\w+/picassovc,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js,timeout=60,requires-body=true,argument="{\"davsdmpk_enable\":{{{大众点评}}}}"
 
 # > 滴滴出行
 # hostname = res.xiaojukeji.com, common.diditaxi.com.cn, hd.xiaojukeji.com, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, conf.diditaxi.com.cn
-didiAds = type=http-response,pattern=(?i)^https?://ct\.xiaojukeji\.com/agent/v3/feeds,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds2 = type=http-response,pattern=(?i)^https?://freight\.xiaojukeji\.com/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds3 = type=http-response,pattern=(?i)^https?://res\.xiaojukeji\.com/resapi/activity/xpget,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds4 = type=http-response,pattern=(?i)^https?://res\.xiaojukeji\.com/resapi/activity/mget,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds5 = type=http-response,pattern=(?i)^https?://conf\.diditaxi\.com\.cn/homepage/v\d/other/fast,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
+didiAds = type=http-response,pattern=(?i)^https?://ct\.xiaojukeji\.com/agent/v3/feeds,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds2 = type=http-response,pattern=(?i)^https?://freight\.xiaojukeji\.com/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds3 = type=http-response,pattern=(?i)^https?://res\.xiaojukeji\.com/resapi/activity/xpget,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds4 = type=http-response,pattern=(?i)^https?://res\.xiaojukeji\.com/resapi/activity/mget,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds5 = type=http-response,pattern=(?i)^https?://conf\.diditaxi\.com\.cn/homepage/v\d/other/fast,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
 #http-response ^https?:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/core script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js, requires-body=true, timeout=60, tag=滴滴出行
-didiAds6 = type=http-response,pattern=(?i)^https?://conf\.diditaxi\.com\.cn/dynamic/conf,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds7 = type=http-response,pattern=(?i)^https?://common\.diditaxi\.com\.cn/common/v\d/usercenter/me,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds8 = type=http-response,pattern=(?i)^https?://daijia\.kuaidadi\.com/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
-didiAds9 = type=http-response,pattern=(?i)^https?://daijia\.kuaidadi\.com:443/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
+didiAds6 = type=http-response,pattern=(?i)^https?://conf\.diditaxi\.com\.cn/dynamic/conf,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds7 = type=http-response,pattern=(?i)^https?://common\.diditaxi\.com\.cn/common/v\d/usercenter/me,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds8 = type=http-response,pattern=(?i)^https?://daijia\.kuaidadi\.com/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
+didiAds9 = type=http-response,pattern=(?i)^https?://daijia\.kuaidadi\.com:443/gateway,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
 # 微信小程序个人中心净化 感谢【TEXAS】分享
-didiAds10 = type=http-response,pattern=(?i)^https?://common\.diditaxi\.com\.cn/common/v5,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{didi}}}}"
+didiAds10 = type=http-response,pattern=(?i)^https?://common\.diditaxi\.com\.cn/common/v5,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/didi/didiAds.js,timeout=60,requires-body=true,argument="{\"didiiuxk_enable\":{{{滴滴出行}}}}"
 
 # > 电影猎手
 # hostname = app-v1.ecoliving168.com
-dianyinglieshou = type=http-response,pattern=(?i)^https://app-v1\.ecoliving168\.com/api/v1/movie/index_recommend\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/dianyinglieshou.js,timeout=60,requires-body=true,argument="{\"dyls_enable\":{{{dianyinglieshou}}}}"
+dianyinglieshou = type=http-response,pattern=(?i)^https://app-v1\.ecoliving168\.com/api/v1/movie/index_recommend\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/dianyinglieshou.js,timeout=60,requires-body=true,argument="{\"dyls_enable\":{{{电影猎手}}}}"
 
 # > 叮咚买菜
 # hostname = maicai.api.ddxq.mobi, gw.api.ddxq.mobi, user.api.ddxq.mobi
 # 开屏广告及首页推荐流及底部状态栏优化
-ddxq = type=http-response,pattern=(?i)^https?://maicai\.api\.ddxq\.mobi/homeApi/(?>bottomNavi|homeFlowDetail),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{dingdong}}}}"
+ddxq = type=http-response,pattern=(?i)^https?://maicai\.api\.ddxq\.mobi/homeApi/(?>bottomNavi|homeFlowDetail),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{叮咚买菜}}}}"
 # 右下角AI
-ddxq2 = type=http-response,pattern=(?i)^https?://maicai\.api\.ddxq\.mobi/tool/getConfig,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{dingdong}}}}"
+ddxq2 = type=http-response,pattern=(?i)^https?://maicai\.api\.ddxq\.mobi/tool/getConfig,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{叮咚买菜}}}}"
 # 我的页净化
-ddxq3 = type=http-response,pattern=(?i)^https?://user\.api\.ddxq\.mobi/userportal-service/api/v\d/user/queryMyPage,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{dingdong}}}}"
+ddxq3 = type=http-response,pattern=(?i)^https?://user\.api\.ddxq\.mobi/userportal-service/api/v\d/user/queryMyPage,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/ddxq.js,timeout=60,requires-body=true,argument="{\"ddmc_enable\":{{{叮咚买菜}}}}"
 
 # > 动画疯
 # hostname = api.gamer.com.tw
 # (黑屏25秒)
-BahamutAnimeAds = type=http-response,pattern=(?i)^https?://api\.gamer\.com\.tw/mobile_app/anime/v\d/(token|m3u8).php\?,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js,timeout=60,requires-body=true,argument="{\"dshxfg_enable\":{{{donghuafeng}}}}"
+BahamutAnimeAds = type=http-response,pattern=(?i)^https?://api\.gamer\.com\.tw/mobile_app/anime/v\d/(token|m3u8).php\?,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js,timeout=60,requires-body=true,argument="{\"dshxfg_enable\":{{{动画疯}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ E ✅ <<<<<<<<<<<<<<
@@ -5767,12 +5767,12 @@ BahamutAnimeAds = type=http-response,pattern=(?i)^https?://api\.gamer\.com\.tw/m
 
 # > 飞客茶馆
 # hostname = api.flydigi.com
-fly = type=http-response,pattern=(?i)^https?://47\.100\.65\.202/source/plugin/mobile/mobile\.php\?module=threadpost&.+?&page=1,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/fly.js,timeout=60,requires-body=true,argument="{\"fwke_enable\":{{{feike}}}}"
-flyert = type=http-response,pattern=(?i)^https?://www\.flyert\.com(\.cn)?/.*plugin,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/flyert.js,timeout=60,requires-body=true,argument="{\"fwke_enable\":{{{feike}}}}"
+fly = type=http-response,pattern=(?i)^https?://47\.100\.65\.202/source/plugin/mobile/mobile\.php\?module=threadpost&.+?&page=1,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/fly.js,timeout=60,requires-body=true,argument="{\"fwke_enable\":{{{飞客茶馆}}}}"
+flyert = type=http-response,pattern=(?i)^https?://www\.flyert\.com(\.cn)?/.*plugin,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/flyert.js,timeout=60,requires-body=true,argument="{\"fwke_enable\":{{{飞客茶馆}}}}"
 
 # > 粉笔
 # hostname = tiku.fenbi.com
-fenbi = type=http-response,pattern=(?i)^https?://tiku\.fenbi\.com/activity/app/launcher\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/fenbi.js,timeout=60,requires-body=true,argument="{\"ffbi_enable\":{{{fenbi}}}}"
+fenbi = type=http-response,pattern=(?i)^https?://tiku\.fenbi\.com/activity/app/launcher\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/fenbi.js,timeout=60,requires-body=true,argument="{\"ffbi_enable\":{{{粉笔}}}}"
 
 # > 复游会微信小程序
 # hostname = apis.folidaymall.com
@@ -5789,17 +5789,17 @@ foliday = type=http-response,pattern=(?i)^https?://apis\.folidaymall\.com/online
 
 # > 航旅纵横
 # hostname = home.umetrip.com, discardrp.umetrip.com, startup.umetrip.com, oss.umetrip.com
-umetrip_ads = type=http-response,pattern=(?i)^http?://(114\.115\.217\.129)|(home\.umetrip\.com)/gateway/api/umetrip/native$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/umetrip/umetrip_ads.js,timeout=60,requires-body=true,argument="{\"hlzh_enable\":{{{hanglv}}}}"
+umetrip_ads = type=http-response,pattern=(?i)^http?://(114\.115\.217\.129)|(home\.umetrip\.com)/gateway/api/umetrip/native$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/umetrip/umetrip_ads.js,timeout=60,requires-body=true,argument="{\"hlzh_enable\":{{{航旅纵横}}}}"
 
 # > 盒马
 # hostname = acs.m.taobao.com, acs-m.freshippo.com
-freshippo = type=http-response,pattern=(?i)^https?://acs(\.|-)m\.(taobao|freshippo)\.com/gw/mtop\.wdk\.render\.query(?>indexpage|mypage|tabfeedstream),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/freshippo.js,timeout=60,requires-body=true,argument="{\"hema_enable\":{{{hema}}}}"
+freshippo = type=http-response,pattern=(?i)^https?://acs(\.|-)m\.(taobao|freshippo)\.com/gw/mtop\.wdk\.render\.query(?>indexpage|mypage|tabfeedstream),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/freshippo.js,timeout=60,requires-body=true,argument="{\"hema_enable\":{{{盒马}}}}"
 
 # > 汇付天下
 # hostname = mcsp.cloudpnr.com, saas-ad.cloudpnr.com
 # 感谢【可莉】分享
-huifutianxia_ads = type=http-response,pattern=(?i)^https://mcsp\.cloudpnr\.com/api/miniapp/popular/T_MINIAPP$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/huifutianxia_ads.js,timeout=60,requires-body=true,argument="{\"hftx_enable\":{{{huifu}}}}"
-huifutianxia_ads2 = type=http-response,pattern=(?i)^https://saas-ad\.cloudpnr\.com/huifuad-base-api/api/tactics/ad,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/huifutianxia_ads.js,timeout=60,requires-body=true,argument="{\"hftx_enable\":{{{huifu}}}}"
+huifutianxia_ads = type=http-response,pattern=(?i)^https://mcsp\.cloudpnr\.com/api/miniapp/popular/T_MINIAPP$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/huifutianxia_ads.js,timeout=60,requires-body=true,argument="{\"hftx_enable\":{{{汇付天下}}}}"
+huifutianxia_ads2 = type=http-response,pattern=(?i)^https://saas-ad\.cloudpnr\.com/huifuad-base-api/api/tactics/ad,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/huifutianxia_ads.js,timeout=60,requires-body=true,argument="{\"hftx_enable\":{{{汇付天下}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ I ✅ <<<<<<<<<<<<<<
@@ -5807,51 +5807,51 @@ huifutianxia_ads2 = type=http-response,pattern=(?i)^https://saas-ad\.cloudpnr\.c
 # > IT之家
 # hostname = napi.ithome.com
 # 移除 轮播图 置顶文章 信息流广告
-ithome = type=http-response,pattern=(?i)^https?://napi\.ithome\.com/api/(news/index|topmenu/getfeeds),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ithome/ithome.js,timeout=60,requires-body=true,argument="{\"itzj_enable\":{{{ithome}}}}"
+ithome = type=http-response,pattern=(?i)^https?://napi\.ithome\.com/api/(news/index|topmenu/getfeeds),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ithome/ithome.js,timeout=60,requires-body=true,argument="{\"itzj_enable\":{{{IT之家}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ J ✅ <<<<<<<<<<<<<<
 
 # > 建行生活
 # hostname = yunbusiness.ccb.com, g.alicdn.com, waimai-guide.ele.me
-ccbLifeAds = type=http-response,pattern=(?i)^https?://yunbusiness\.ccb\.com/basic_service/txCtrl\?txcode=A3341AB04,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ccbLife/ccbLifeAds.js,timeout=60,requires-body=true,argument="{\"jhsh_enable\":{{{jianhang}}}}"
+ccbLifeAds = type=http-response,pattern=(?i)^https?://yunbusiness\.ccb\.com/basic_service/txCtrl\?txcode=A3341AB04,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ccbLife/ccbLifeAds.js,timeout=60,requires-body=true,argument="{\"jhsh_enable\":{{{建行生活}}}}"
 # 内置饿了么
-alicdn = type=http-response,pattern=(?i)^https?://g\.alicdn\.com/.*o2o-ad,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/alicdn.js,timeout=60,requires-body=true,argument="{\"jhsh_enable\":{{{jianhang}}}}"
+alicdn = type=http-response,pattern=(?i)^https?://g\.alicdn\.com/.*o2o-ad,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/alicdn.js,timeout=60,requires-body=true,argument="{\"jhsh_enable\":{{{建行生活}}}}"
 
 # > 京东
 # hostname = api.m.jd.com, dns.jd.com
-jingdong = type=http-response,pattern=(?i)^https://api\.m\.jd\.com/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingdong/jingdong.js,timeout=60,requires-body=true,argument="{\"jkds_enable\":{{{jingdong}}}}"
+jingdong = type=http-response,pattern=(?i)^https://api\.m\.jd\.com/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingdong/jingdong.js,timeout=60,requires-body=true,argument="{\"jkds_enable\":{{{京东}}}}"
 
 # > 京喜
 # hostname = api.m.jd.com
-jingxiAd = type=http-response,pattern=(?i)^https?://api\.m\.jd\.com/api\?functionId=delivery_show,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingxiAd.js,timeout=60,requires-body=true,argument="{\"jkxi_enable\":{{{jingxi}}}}"
+jingxiAd = type=http-response,pattern=(?i)^https?://api\.m\.jd\.com/api\?functionId=delivery_show,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingxiAd.js,timeout=60,requires-body=true,argument="{\"jkxi_enable\":{{{京喜}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ K ✅ <<<<<<<<<<<<<<
 
 # > 酷安
 # hostname = api.coolapk.com, www.coolapk.com
-coolapk = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/feed/(detail|replyList)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{kuan}}}}"
-coolapk2 = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/main/(dataList|indexV8|init),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{kuan}}}}"
-coolapk3 = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/page/dataList\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{kuan}}}}"
-Coolapk_Redirect = type=http-request,pattern=(?i)^https://www\.coolapk\.com/link.*,script-path=https://raw.githubusercontent.com/VenenoSix24/Ivy-Script/refs/heads/main/Loon/script/Coolapk_Redirect.js,timeout=10,argument="{\"kuan_enable\":{{{kuan}}}}"
+coolapk = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/feed/(detail|replyList)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{酷安}}}}"
+coolapk2 = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/main/(dataList|indexV8|init),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{酷安}}}}"
+coolapk3 = type=http-response,pattern=(?i)^https?://api\.coolapk\.com/v6/page/dataList\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js,timeout=60,requires-body=true,argument="{\"kuan_enable\":{{{酷安}}}}"
+Coolapk_Redirect = type=http-request,pattern=(?i)^https://www\.coolapk\.com/link.*,script-path=https://raw.githubusercontent.com/VenenoSix24/Ivy-Script/refs/heads/main/Loon/script/Coolapk_Redirect.js,timeout=10,argument="{\"kuan_enable\":{{{酷安}}}}"
 
 # > 酷我音乐
 # hostname = audiobookpay.kuwo.cn, mgxhtj.kuwo.cn, nmobi.kuwo.cn, searchrecterm.kuwo.cn, musicpay.kuwo.cn, vip1.kuwo.cn
-kuwo = type=http-response,pattern=(?i)^https?://(mgxhtj|nmobi|searchrecterm)\.kuwo\.cn/(mgxh|mobi|recterm)\.s,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{kuwo}}}}"
+kuwo = type=http-response,pattern=(?i)^https?://(mgxhtj|nmobi|searchrecterm)\.kuwo\.cn/(mgxh|mobi|recterm)\.s,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{酷我音乐}}}}"
 # 会员
-kuwo2 = type=http-response,pattern=(?i)^https?://audiobookpay\.kuwo\.cn/a\.p,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{kuwo}}}}"
-kuwo3 = type=http-response,pattern=(?i)^https?://musicpay\.kuwo\.cn/music\.pay,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{kuwo}}}}"
-kuwo4 = type=http-response,pattern=(?i)^https?://vip1\.kuwo\.cn/vip/(enc/user/vip\?op=ui|v\d/theme\?op=gd),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{kuwo}}}}"
-kuwo5 = type=http-response,pattern=(?i)^https?://vip1\.kuwo\.cn/vip/v\d/user/vip\?op=ui,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{kuwo}}}}"
+kuwo2 = type=http-response,pattern=(?i)^https?://audiobookpay\.kuwo\.cn/a\.p,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{酷我音乐}}}}"
+kuwo3 = type=http-response,pattern=(?i)^https?://musicpay\.kuwo\.cn/music\.pay,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{酷我音乐}}}}"
+kuwo4 = type=http-response,pattern=(?i)^https?://vip1\.kuwo\.cn/vip/(enc/user/vip\?op=ui|v\d/theme\?op=gd),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{酷我音乐}}}}"
+kuwo5 = type=http-response,pattern=(?i)^https?://vip1\.kuwo\.cn/vip/v\d/user/vip\?op=ui,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/kuwo/kuwo.js,timeout=60,requires-body=true,argument="{\"kuwoybyt_enable\":{{{酷我音乐}}}}"
 
 # > 夸克
 # hostname = open-cms-api.uc.cn, open-cms-api.quark.cn
-quark = type=http-response,pattern=(?i)^https?://open-cms-api\.(uc|quark)\.cn/open-cms,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/quark.js,timeout=60,requires-body=true,argument="{\"kxke_enable\":{{{quark}}}}"
+quark = type=http-response,pattern=(?i)^https?://open-cms-api\.(uc|quark)\.cn/open-cms,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/quark.js,timeout=60,requires-body=true,argument="{\"kxke_enable\":{{{夸克}}}}"
 
 # > 快手联盟,优量汇,穿山甲「广告联盟」
 # hostname = api-access.pangolin-sdk-toutiao.com, mi.gdt.qq.com, open.e.kuaishou.com
-adsense = type=http-response,pattern=(?i)^https://(api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk/get_ads|open\.e\.kuaishou\.com/rest/e/v3/open/univ$|mi\.gdt\.qq\.com/gdt_mview\.fcg\?),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/adsense.js,timeout=60,requires-body=true,argument="{\"glgclmmg_enable\":{{{kuaishou}}}}"
+adsense = type=http-response,pattern=(?i)^https://(api-access\.pangolin-sdk-toutiao\.com/api/ad/union/sdk/get_ads|open\.e\.kuaishou\.com/rest/e/v3/open/univ$|mi\.gdt\.qq\.com/gdt_mview\.fcg\?),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/adsense.js,timeout=60,requires-body=true,argument="{\"glgclmmg_enable\":{{{快手联盟}}}}"
 
 # > Keep
 # hostname = api.gotokeep.com, kad.gotokeep.com, static1.keepcdn.com
@@ -5872,45 +5872,45 @@ keep5 = type=http-response,pattern=(?i)^https?://api\.gotokeep\.com/sportpage/sp
 # > 旅途随身听
 # hostname = www.1314zhilv.com
 # 首页北京城市导览图片,首页上方轮播图片净化
-ltsst-ad = type=http-response,pattern=(?i)^https?://www\.1314zhilv\.com/ltsstnew/(common/getJGQIconNew|city/getAllBannelByCity),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lvtusuishenting/ltsst-ad.js,timeout=60,requires-body=true,argument="{\"lvtusvuftk_enable\":{{{lvtu}}}}"
+ltsst-ad = type=http-response,pattern=(?i)^https?://www\.1314zhilv\.com/ltsstnew/(common/getJGQIconNew|city/getAllBannelByCity),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lvtusuishenting/ltsst-ad.js,timeout=60,requires-body=true,argument="{\"lvtusvuftk_enable\":{{{旅途随身听}}}}"
 
 # > 罗森点点
 # hostname = plt.yorentown.com, lawsonapi.yorentown.com
-lawson = type=http-response,pattern=(?i)^https://lawsonapi\.yorentown\.com/area/sh-lawson/app/v1/,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lawson.js,timeout=60,requires-body=true,argument="{\"lawson_enable\":{{{lawson}}}}"
-lawson2 = type=http-response,pattern=(?i)^https://lawsonapi\.yorentown\.com/portal/app/globalLaunch/listAdvert,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lawson.js,timeout=60,requires-body=true,argument="{\"lawson_enable\":{{{lawson}}}}"
+lawson = type=http-response,pattern=(?i)^https://lawsonapi\.yorentown\.com/area/sh-lawson/app/v1/,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lawson.js,timeout=60,requires-body=true,argument="{\"lawson_enable\":{{{罗森点点}}}}"
+lawson2 = type=http-response,pattern=(?i)^https://lawsonapi\.yorentown\.com/portal/app/globalLaunch/listAdvert,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lawson.js,timeout=60,requires-body=true,argument="{\"lawson_enable\":{{{罗森点点}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ M ✅ <<<<<<<<<<<<<<
 
 # > 马蜂窝
 # hostname = mapi.mafengwo.cn
-mafengwo = type=http-response,pattern=(?i)^https?://mapi\.mafengwo\.cn/user/profile/get_(list|profile),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mafengwo.js,timeout=60,requires-body=true,argument="{\"mafgwo_enable\":{{{mafengwo}}}}"
+mafengwo = type=http-response,pattern=(?i)^https?://mapi\.mafengwo\.cn/user/profile/get_(list|profile),script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mafengwo.js,timeout=60,requires-body=true,argument="{\"mafgwo_enable\":{{{马蜂窝}}}}"
 
 # > 买单吧
 # hostname = creditcardapp.bankcomm.cn, creditcardapp.bankcomm.com, creditcard.bankcomm.cn, creditcard.bankcomm.com
-mdb = type=http-response,pattern=(?i)^https?://creditcardapp\.bankcomm\.(com|cn)/rcg/index\.html\?callbackurl=rcg/index\.html&orclogin=1&,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mdb.js,timeout=60,requires-body=true,argument="{\"mddjba_enable\":{{{maidanba}}}}"
+mdb = type=http-response,pattern=(?i)^https?://creditcardapp\.bankcomm\.(com|cn)/rcg/index\.html\?callbackurl=rcg/index\.html&orclogin=1&,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mdb.js,timeout=60,requires-body=true,argument="{\"mddjba_enable\":{{{买单吧}}}}"
 
 # > 脉脉
 # hostname = open.taou.com, h3.open.taou.com
 # 帖子末尾 看过此贴的用户也在看
-maimai_ads = type=http-response,pattern=(?i)^https://(h3\.)?open\.taou\.com/maimai/feed/v6/detail_recommend_feeds\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js,timeout=60,requires-body=true,argument="{\"mdmd_enable\":{{{maimai}}}}"
+maimai_ads = type=http-response,pattern=(?i)^https://(h3\.)?open\.taou\.com/maimai/feed/v6/detail_recommend_feeds\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js,timeout=60,requires-body=true,argument="{\"mdmd_enable\":{{{脉脉}}}}"
 # 移除信息流和评论区大块广告 信息流广告focus_feed / 评论区广告gossip_detail_comment / 评论区广告feed_detail_comment?
-maimai_ads2 = type=http-response,pattern=(?i)^https://(h3\.)?open\.taou\.com/maimai/(feed|gossip)/v\d/(focus_feed|gossip_detail_comment|feed_detail_comment?)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js,timeout=60,requires-body=true,argument="{\"mdmd_enable\":{{{maimai}}}}"
+maimai_ads2 = type=http-response,pattern=(?i)^https://(h3\.)?open\.taou\.com/maimai/(feed|gossip)/v\d/(focus_feed|gossip_detail_comment|feed_detail_comment?)\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js,timeout=60,requires-body=true,argument="{\"mdmd_enable\":{{{脉脉}}}}"
 
 # > 芒果TV
 # hostname = *.mgtv.com
 # 我的页面
-cnftp14 = type=http-response,pattern=(?i)^https?://me\.bz\.mgtv\.com/v3/module/list\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
+cnftp14 = type=http-response,pattern=(?i)^https?://me\.bz\.mgtv\.com/v3/module/list\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
 # 首页信息流,顶部tab
-cnftp15 = type=http-response,pattern=(?i)^https?://mob-st\.bz\.mgtv\.com/odin/c1/channel/index\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
-cnftp16 = type=http-response,pattern=(?i)^https?://dc2?\.bz\.mgtv\.com/dynamic/v1/channel/(index|vrsList)/\w,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
+cnftp15 = type=http-response,pattern=(?i)^https?://mob-st\.bz\.mgtv\.com/odin/c1/channel/index\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
+cnftp16 = type=http-response,pattern=(?i)^https?://dc2?\.bz\.mgtv\.com/dynamic/v1/channel/(index|vrsList)/\w,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
 # 底部tab
-cnftp17 = type=http-response,pattern=(?i)^https?://mobile\.api\.mgtv\.com/mobile/config\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
+cnftp17 = type=http-response,pattern=(?i)^https?://mobile\.api\.mgtv\.com/mobile/config\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
 # 播放详情页
-cnftp18 = type=http-response,pattern=(?i)^https?://mobile\.api\.mgtv\.com/v10/video/info\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
-cnftp19 = type=http-response,pattern=(?i)^https?://mobile-thor\.api\.mgtv\.com/v1/vod/info\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
+cnftp18 = type=http-response,pattern=(?i)^https?://mobile\.api\.mgtv\.com/v10/video/info\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
+cnftp19 = type=http-response,pattern=(?i)^https?://mobile-thor\.api\.mgtv\.com/v1/vod/info\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
 # 搜索框填充词
-cnftp20 = type=http-response,pattern=(?i)^https?://mobileso\.bz\.mgtv\.com/mobile/recommend/v2\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{mangotv}}}}"
+cnftp20 = type=http-response,pattern=(?i)^https?://mobileso\.bz\.mgtv\.com/mobile/recommend/v2\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"mhgotv_enable\":{{{芒果TV}}}}"
 
 # > 美丽修行
 # hostname = api.bevol.com
@@ -5919,8 +5919,8 @@ mlxx = type=http-response,pattern=(?i)^https://api\.bevol\.com/(?:appmain/app/ho
 
 # > 美柚
 # hostname = x.seeyouyima.com, axxd.xmseeyouyima.com, config-service.seeyouyima.com
-meiyou_ads = type=http-response,pattern=(?i)^https://config-service\.seeyouyima\.com/api/configs/batch\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js,timeout=60,requires-body=true,argument="{\"meiyou_enable\":{{{meiyou}}}}"
-meiyou_ads2 = type=http-response,pattern=(?i)^https://config-service\.seeyouyima\.com/api/configs\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js,timeout=60,requires-body=true,argument="{\"meiyou_enable\":{{{meiyou}}}}"
+meiyou_ads = type=http-response,pattern=(?i)^https://config-service\.seeyouyima\.com/api/configs/batch\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js,timeout=60,requires-body=true,argument="{\"meiyou_enable\":{{{美柚}}}}"
+meiyou_ads2 = type=http-response,pattern=(?i)^https://config-service\.seeyouyima\.com/api/configs\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js,timeout=60,requires-body=true,argument="{\"meiyou_enable\":{{{美柚}}}}"
 
 # > 咪咕视频
 # hostname = ggc.miguvideo.com, public-deliver9.miguvideo.com, display*-sc.miguvideo.com, recommend-dy.miguvideo.com, app-sc.miguvideo.com, common-sc.miguvideo.com, ggx*.miguvideo.com, ggic*.miguvideo.com
@@ -5937,20 +5937,20 @@ miguvideo_ads = type=http-response,pattern=(?i)^https?://display-sc\.miguvideo\.
 
 # > 朴朴超市
 # hostname = j1.pupuapi.com
-PupuSplashAds = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/search/hot_keywords/v3,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/search/hot_keywords/v3,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
-PupuSplashAds2 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/app_resource/resource_preload/list_h5_resource,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds2 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/app_resource/resource_preload/list_h5_resource,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
-PupuSplashAds3 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/marketing/advertisement/v1,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds3 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/marketing/advertisement/v1,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
 # 搜索结果页信息流横幅广告
-PupuSplashAds4 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/search/hub/search_box/products/v6,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds4 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/search/hub/search_box/products/v6,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
 # 下单页实惠卡开通推荐
-PupuSplashAds5 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/order_settlement/detail,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds5 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/order_settlement/detail,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
 # 订单列表骑手反馈问题推荐
-PupuSplashAds6 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/order/orders/list/v4,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{pupu}}}}"
+PupuSplashAds6 = type=http-response,pattern=(?i)^https://j1\.pupuapi\.com/client/order/orders/list/v4,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js,timeout=60,requires-body=true,argument="{\"pupuicui_enable\":{{{朴朴超市}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ Q ✅ <<<<<<<<<<<<<<
@@ -5966,21 +5966,21 @@ qmai = type=http-response,pattern=(?i)^https?://(?>webapi|miniapp)\.qmai\.cn/web
 
 # > 前程无忧 51Job
 # hostname = appapi.51job*.com, cupid.51job*.comhostname = img01.51jobcdn.com, cupid.51job*.com
-s_51job = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/noauth/recommend/job-tab-dynamic,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{job51}}}}"
+s_51job = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/noauth/recommend/job-tab-dynamic,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{前程无忧}}}}"
 
 
 
 
 
 # 推荐流信息广告
-s_51job2 = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/noauth/recommend/job-tab-dynamic,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{job51}}}}"
+s_51job2 = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/noauth/recommend/job-tab-dynamic,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{前程无忧}}}}"
 # 我的页净化
-s_51job3 = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/my-page/,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{job51}}}}"
+s_51job3 = type=http-response,pattern=(?i)^https?://cupid\.51job(app)?\.com/open/my-page/,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/51job.js,timeout=60,requires-body=true,argument="{\"51job_enable\":{{{前程无忧}}}}"
 
 # > 去哒
 # hostname = iqushangwang.8quan.com
 # 首页开屏广告 感谢【德克萨斯】分享
-QuDa = type=http-response,pattern=(?i)^https?://iqushangwang\.8quan\.com/index\.php/i/index/index,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/QuDa.js,timeout=60,requires-body=true,argument="{\"quda_enable\":{{{quda}}}}"
+QuDa = type=http-response,pattern=(?i)^https?://iqushangwang\.8quan\.com/index\.php/i/index/index,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/QuDa.js,timeout=60,requires-body=true,argument="{\"quda_enable\":{{{去哒}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ R ✅ <<<<<<<<<<<<<<
@@ -5988,86 +5988,86 @@ QuDa = type=http-response,pattern=(?i)^https?://iqushangwang\.8quan\.com/index\.
 # > 人人视频
 # hostname = api.rr.tv
 # RRTV_level_info
-rrtv_json = type=http-response,pattern=(?i)^https?://api\.rr\.tv/\w{3}/level/info,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json = type=http-response,pattern=(?i)^https?://api\.rr\.tv/\w{3}/level/info,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_去除首頁廣告
-rrtv_json2 = type=http-response,pattern=(?i)https://api.rr.tv/v3plus/index/channel\?pageNum=1&position=CHANNEL_INDEX,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json2 = type=http-response,pattern=(?i)https://api.rr.tv/v3plus/index/channel\?pageNum=1&position=CHANNEL_INDEX,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_去除廣場tab
-rrtv_json3 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/app/config/h5NativeBar,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json3 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/app/config/h5NativeBar,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_去除商城廣告
-rrtv_json4 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/v3plus/index/channel\?pageNum=1&position=CHANNEL_MY,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json4 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/v3plus/index/channel\?pageNum=1&position=CHANNEL_MY,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_Ad_List
-rrtv_json5 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/user/privilege/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json5 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/user/privilege/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_Ad_All
-rrtv_json6 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/ad/getAll,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json6 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/ad/getAll,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_Get_Drama
-rrtv_json7 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/drama/app/get_combined_drama_detail,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json7 = type=http-response,pattern=(?i)^https?://api\.rr\.tv/drama/app/get_combined_drama_detail,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_Watch_V4
-rrtv_json8 = type=http-response,pattern=(?i)https://api.rr.tv/watch/v4,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json8 = type=http-response,pattern=(?i)https://api.rr.tv/watch/v4,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 # RRTV_User_Info
-rrtv_json9 = type=http-response,pattern=(?i)https://api.rr.tv/user/profile,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{renren}}}}"
+rrtv_json9 = type=http-response,pattern=(?i)https://api.rr.tv/user/profile,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js,timeout=60,requires-body=true,argument="{\"rfrfuipk_enable\":{{{人人视频}}}}"
 
 # > Reddit
 # hostname = gql.reddit.com, gql-fed.reddit.com
 # 过滤推广 关NSFW提示 感谢【xream】分享
-reddit = type=http-response,pattern=(?i)^https?://gql(-fed)?\.reddit\.com,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js,timeout=60,requires-body=true,argument="{\"reddit_enable\":{{{reddit}}}}"
+reddit = type=http-response,pattern=(?i)^https?://gql(-fed)?\.reddit\.com,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js,timeout=60,requires-body=true,argument="{\"reddit_enable\":{{{Reddit}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ S ✅ <<<<<<<<<<<<<<
 
 # > 什么值得买
 # hostname = homepage-api.smzdm.com, haojia-api.smzdm.com, app-api.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, qianbao.smzdm.com, s-api.smzdm.com, haojia.m.smzdm.com
-smzdm_ads = type=http-response,pattern=(?i)^https?://haojia\.m\.smzdm\.com/detail_modul/user_related_modul\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-smzdm_ads2 = type=http-response,pattern=(?i)^https?://haojia-api\.smzdm\.com/ranking_list/articles\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-smzdm_ads3 = type=http-response,pattern=(?i)^https?://s-api\.smzdm\.com/sou/filter/tags/hot_tags\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-smzdm_ads4 = type=http-response,pattern=(?i)^https?://s-api\.smzdm\.com/sou/list_v10\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-smzdm_ads5 = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip/creator_user_center,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
+smzdm_ads = type=http-response,pattern=(?i)^https?://haojia\.m\.smzdm\.com/detail_modul/user_related_modul\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+smzdm_ads2 = type=http-response,pattern=(?i)^https?://haojia-api\.smzdm\.com/ranking_list/articles\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+smzdm_ads3 = type=http-response,pattern=(?i)^https?://s-api\.smzdm\.com/sou/filter/tags/hot_tags\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+smzdm_ads4 = type=http-response,pattern=(?i)^https?://s-api\.smzdm\.com/sou/list_v10\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+smzdm_ads5 = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip/creator_user_center,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/smzdm_ads.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip$,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
 # 感谢【怎么肥事】分享
-Smzdm2 = type=http-response,pattern=(?i)^https?://app-api\.smzdm\.com/util/loading,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm3 = type=http-response,pattern=(?i)^https?://app-api\.smzdm\.com/util/update,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm4 = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip/bottom_card_list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm5 = type=http-response,pattern=(?i)^https?://haojia-api\.smzdm\.com/home/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm6 = type=http-response,pattern=(?i)^https?://homepage-api\.smzdm\.com/v3/home,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm7 = type=http-response,pattern=(?i)^https?://article-api\.smzdm\.com/publish/get_bubble,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
-Smzdm8 = type=http-response,pattern=(?i)^https?://qianbao\.smzdm\.com/v\d/app/home,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{smzdm}}}}"
+Smzdm2 = type=http-response,pattern=(?i)^https?://app-api\.smzdm\.com/util/loading,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm3 = type=http-response,pattern=(?i)^https?://app-api\.smzdm\.com/util/update,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm4 = type=http-response,pattern=(?i)^https?://user-api\.smzdm\.com/vip/bottom_card_list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm5 = type=http-response,pattern=(?i)^https?://haojia-api\.smzdm\.com/home/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm6 = type=http-response,pattern=(?i)^https?://homepage-api\.smzdm\.com/v3/home,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm7 = type=http-response,pattern=(?i)^https?://article-api\.smzdm\.com/publish/get_bubble,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
+Smzdm8 = type=http-response,pattern=(?i)^https?://qianbao\.smzdm\.com/v\d/app/home,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/smzdm/Smzdm.js,timeout=60,requires-body=true,argument="{\"smzdm_enable\":{{{什么值得买}}}}"
 
 # > 苏打校园APP
 # hostname = api.sodalife.xyz
-soda = type=http-response,pattern=(?i)^https?://api\.sodalife\.xyz/v1/posters\?location=SODA_APP%3AHOME%3ATOP,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soda.js,timeout=60,requires-body=true,argument="{\"sudaxnyr_enable\":{{{suda}}}}"
+soda = type=http-response,pattern=(?i)^https?://api\.sodalife\.xyz/v1/posters\?location=SODA_APP%3AHOME%3ATOP,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soda.js,timeout=60,requires-body=true,argument="{\"sudaxnyr_enable\":{{{苏打校园APP}}}}"
 
 # > Soul
 # hostname = 47.110.187.87, ssp.soulapp.cn, chat-live.soulapp.cn, api-chat.soulapp.cn, api-account.soulapp.cn, api-global.soulapp.me, api-a.soulapp.cn, api-pay.soulapp.cn, gateway-mobile-gray.soulapp.cn, post.soulapp.cn, api-user.soulapp.cn
 # 替换信息收集
-req_replace_body = type=http-request,pattern=(?i)^https://data-collector\.soulapp\.cn/api/data/report/v\d,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/req_replace_body.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
+req_replace_body = type=http-request,pattern=(?i)^https://data-collector\.soulapp\.cn/api/data/report/v\d,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/req_replace_body.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
 # 青少年模式弹窗
-soul_ads = type=http-response,pattern=(?i)^https?://api-account\.soulapp\.cn/teenager/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads2 = type=http-response,pattern=(?i)^https?://api-a\.soulapp\.cn/v2/post/gift/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads3 = type=http-response,pattern=(?i)^https?://api-a\.soulapp\.cn/official/scene/module,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads4 = type=http-response,pattern=(?i)^https?://api-user\.soulapp\.cn/furion/position/content,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads5 = type=http-response,pattern=(?i)^https?://api-user\.soulapp\.cn/v\d/planet/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads6 = type=http-response,pattern=(?i)^https?://api-chat\.soulapp\.cn/chat/limitInfo,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads7 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/hot/soul/rank,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads8 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/v\d/post/homepage/guide/card,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads9 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/v\d/post/recSquare/subTabs,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads10 = type=http-response,pattern=(?i)^https?://chat-live\.soulapp\.cn/chatroom/chatClassifyRoomList,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads11 = type=http-response,pattern=(?i)^https?://gateway-mobile-gray\.soulapp\.cn/mobile/app/version/queryIos,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
-soul_ads12 = type=http-response,pattern=(?i)^https?://47\.110\.187\.87/winterfell/v2/getIpByDomain,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{soul}}}}"
+soul_ads = type=http-response,pattern=(?i)^https?://api-account\.soulapp\.cn/teenager/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads2 = type=http-response,pattern=(?i)^https?://api-a\.soulapp\.cn/v2/post/gift/list,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads3 = type=http-response,pattern=(?i)^https?://api-a\.soulapp\.cn/official/scene/module,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads4 = type=http-response,pattern=(?i)^https?://api-user\.soulapp\.cn/furion/position/content,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads5 = type=http-response,pattern=(?i)^https?://api-user\.soulapp\.cn/v\d/planet/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads6 = type=http-response,pattern=(?i)^https?://api-chat\.soulapp\.cn/chat/limitInfo,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads7 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/hot/soul/rank,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads8 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/v\d/post/homepage/guide/card,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads9 = type=http-response,pattern=(?i)^https?://post\.soulapp\.cn/v\d/post/recSquare/subTabs,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads10 = type=http-response,pattern=(?i)^https?://chat-live\.soulapp\.cn/chatroom/chatClassifyRoomList,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads11 = type=http-response,pattern=(?i)^https?://gateway-mobile-gray\.soulapp\.cn/mobile/app/version/queryIos,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
+soul_ads12 = type=http-response,pattern=(?i)^https?://47\.110\.187\.87/winterfell/v2/getIpByDomain,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/soul/soul_ads.js,timeout=60,requires-body=true,argument="{\"soul_enable\":{{{Soul}}}}"
 
 # > Spotify
 # hostname = *-spclient.spotify.com, spclient.wg.spotify.com
-Spotify.Crack.Dev = type=http-response,pattern=(?i)^https://(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?/(?:bootstrap|user-customization-service),script-path=https://raw.githubusercontent.com/001ProMax/Surge/refs/heads/main/Script/Spotify.Crack.Dev.js,timeout=3,requires-body=true,binary-body-mode=true,argument="{\"tab\":{{{spotify_tab}}},\"useractivity\":{{{spotify_handoff}}}}"
+Spotify.Crack.Dev = type=http-response,pattern=(?i)^https://(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?/(?:bootstrap|user-customization-service),script-path=https://raw.githubusercontent.com/001ProMax/Surge/refs/heads/main/Script/Spotify.Crack.Dev.js,timeout=3,requires-body=true,binary-body-mode=true,argument="{\"tab\":{{{Spotify-移除底栏按钮}}},\"useractivity\":{{{Spotify-设备接力}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ T ✅ <<<<<<<<<<<<<<
 
 # > 淘宝
 # hostname = acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com
-myBlockAds3 = type=http-response,pattern=(?i)^https?://guide-acs\.m\.taobao\.com/gw/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"tcbc_enable\":{{{taobao}}}}"
-myBlockAds4 = type=http-response,pattern=(?i)^https?://poplayer\.template\.alibaba\.com/\w+\.json,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"tcbc_enable\":{{{taobao}}}}"
+myBlockAds3 = type=http-response,pattern=(?i)^https?://guide-acs\.m\.taobao\.com/gw/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"tcbc_enable\":{{{淘宝}}}}"
+myBlockAds4 = type=http-response,pattern=(?i)^https?://poplayer\.template\.alibaba\.com/\w+\.json,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"tcbc_enable\":{{{淘宝}}}}"
 
 # > 腾讯新闻
 # hostname = r.inews.qq.com, news.ssp.qq.com
-qq-news = type=http-response,pattern=(?i)^https?://(news\.ssp\.qq\.com/app|r\.inews\.qq\.com/(get(QQNewsUnreadList|TagFeedList)|gw/page/event_detail|news_feed/hot_module_list)),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/qq-news.js,timeout=60,requires-body=true,argument="{\"tgxyxbwf_enable\":{{{txnews}}}}"
+qq-news = type=http-response,pattern=(?i)^https?://(news\.ssp\.qq\.com/app|r\.inews\.qq\.com/(get(QQNewsUnreadList|TagFeedList)|gw/page/event_detail|news_feed/hot_module_list)),script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/qq-news.js,timeout=60,requires-body=true,argument="{\"tgxyxbwf_enable\":{{{腾讯新闻}}}}"
 
 # > 途虎养车
 # hostname = mkt-gateway.tuhu.cn, cl-gateway.tuhu.cn, gateway.tuhu.cn
@@ -6084,7 +6084,7 @@ tuhu3 = type=http-response,pattern=(?i)^https?://(cl-)?gateway\.tuhu\.cn(/cl)?/c
 # > vgTime
 # hostname = app02.vgtime.com
 # App去开屏广告(需全新应用). 若要去新闻列表广告需要搭配广告联盟模块
-vgtime = type=http-response,pattern=(?i)^https?://app02\.vgtime\.com:8080/vgtime-app/api/v2/init/ad\.json,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/vgtime.js,timeout=60,requires-body=true,argument="{\"vgtime_enable\":{{{vgtime}}}}"
+vgtime = type=http-response,pattern=(?i)^https?://app02\.vgtime\.com:8080/vgtime-app/api/v2/init/ad\.json,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/vgtime.js,timeout=60,requires-body=true,argument="{\"vgtime_enable\":{{{vgTime}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ W ✅ <<<<<<<<<<<<<<
@@ -6092,7 +6092,7 @@ vgtime = type=http-response,pattern=(?i)^https?://app02\.vgtime\.com:8080/vgtime
 # > 网易有道词典
 # hostname = dict.youdao.com, api-overmind.youdao.com, cdke.youdao.com, dictvip-business.youdao.com, dsp-impr2.youdao.com, impservice.dictapp.youdao.com, oral.youdao.com, oimage*.ydstatic.com
 # 首页净化，学习Tab界面净化，首页听读训练净化
-dict-youdao-ad = type=http-response,pattern=(?i)^https?://dict\.youdao\.com/(homepage/promotion|course/tab/home|homepage/tile),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/youdao/dict-youdao-ad.js,timeout=60,requires-body=true,argument="{\"whyiyzdccidm_enable\":{{{youdaocidian}}}}"
+dict-youdao-ad = type=http-response,pattern=(?i)^https?://dict\.youdao\.com/(homepage/promotion|course/tab/home|homepage/tile),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/youdao/dict-youdao-ad.js,timeout=60,requires-body=true,argument="{\"whyiyzdccidm_enable\":{{{网易有道词典}}}}"
 
 # > 网易云音乐
 # hostname = interface.music.163.com, interface3.music.163.com, ipv4.music.163.com, interface9.music.163.com
@@ -6103,9 +6103,9 @@ wyres = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163
 #http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(music-vip-membership\/client\/vip\/info|vipnewcenter\/app\/resource\/newaccountpage) script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, requires-body=true, binary-body-mode=true, timeout=20, tag=ne_vip
 
 # tab
-wyres2 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163\.com/x?e?api/link/home/framework/tab,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js,timeout=20,requires-body=true,binary-body-mode=true,argument="{\"MY\":{{{netease_my}}},\"DT\":{{{netease_dt}}},\"FX\":{{{netease_fx}}}}"
+wyres2 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163\.com/x?e?api/link/home/framework/tab,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js,timeout=20,requires-body=true,binary-body-mode=true,argument="{\"MY\":{{{网易云-隐藏漫游标签}}},\"DT\":{{{网易云-隐藏笔记标签}}},\"FX\":{{{网易云-隐藏发现标签}}}}"
 # 推荐 | home | 主页
-wyres3 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163\.com/x?e?api/(homepage/block/page|link/page/rcmd/(resource/show|block/resource/multi/refresh)),script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js,timeout=20,requires-body=true,binary-body-mode=true,argument="{\"PRGG\":{{{netease_greet}}},\"PRRK\":{{{netease_rank}}},\"PRDRD\":{{{netease_daily}}},\"PRSCVPT\":{{{netease_scvpt}}},\"PRST\":{{{netease_recent}}},\"PRRR\":{{{netease_radar}}},\"HMPR\":{{{netease_partner}}},\"PRMST\":{{{netease_personal}}},\"PRCN\":{{{netease_yours}}}}"
+wyres3 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163\.com/x?e?api/(homepage/block/page|link/page/rcmd/(resource/show|block/resource/multi/refresh)),script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js,timeout=20,requires-body=true,binary-body-mode=true,argument="{\"PRGG\":{{{网易云-隐藏问候语}}},\"PRRK\":{{{网易云-隐藏排行榜}}},\"PRDRD\":{{{网易云-隐藏每日推荐}}},\"PRSCVPT\":{{{网易云-隐藏推荐歌单}}},\"PRST\":{{{网易云-隐藏最近常听}}},\"PRRR\":{{{网易云-隐藏雷达歌单}}},\"HMPR\":{{{网易云-隐藏音乐合伙人}}},\"PRMST\":{{{网易云-隐藏专属推荐}}},\"PRCN\":{{{网易云-隐藏你的歌单}}}}"
 
 # 发现
 wyres4 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.163\.com/x?e?api/link/page/discovery/resource/show,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js,timeout=20,requires-body=true,binary-body-mode=true
@@ -6122,11 +6122,11 @@ wyres6 = type=http-response,pattern=(?i)^https?://(ipv4|interface\d?)\.music\.16
 # > 微信解除链接限制
 # hostname = weixin110.qq.com, security.wechat.com
 # 微信跳过中间界面，支付宝链接、被封禁链接进行通知弹窗跳转，在微信中用快照显示被封禁的链接（可选），在微信中进行强制重定向（可选），群聊 / 扫码均可使用，可选项可在脚本 2、3 行更改，也可在 BoxJs 中更改。
-UnblockURLinWeChat = type=http-response,pattern=(?i)^https\://(weixin110\.qq|security.wechat)\.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi\?,script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js,timeout=60,requires-body=true,argument="{\"lmjpxmvi_enable\":{{{wechatlink}}}}"
+UnblockURLinWeChat = type=http-response,pattern=(?i)^https\://(weixin110\.qq|security.wechat)\.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi\?,script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js,timeout=60,requires-body=true,argument="{\"lmjpxmvi_enable\":{{{解除微信链接限制}}}}"
 
 # > 温尼伯站
 # hostname = vue3-api.zhixiny.cn
-wnbz = type=http-response,pattern=(?i)^https://vue3-api\.zhixiny\.cn/v1/initui\?key=index,script-path=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/wnbz.js,timeout=60,requires-body=true,argument="{\"wfnibovj_enable\":{{{winnipeg}}}}"
+wnbz = type=http-response,pattern=(?i)^https://vue3-api\.zhixiny\.cn/v1/initui\?key=index,script-path=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/wnbz.js,timeout=60,requires-body=true,argument="{\"wfnibovj_enable\":{{{温尼伯站}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ X ✅ <<<<<<<<<<<<<<
@@ -6150,39 +6150,39 @@ goofish7 = type=http-response,pattern=(?i)^https://acs\.m\.goofish\.com/gw/mtop\
 
 # > 香蕉是一种水果
 # hostname = *.pipiapps.com, *.fuliapps.com, *.xiangjiaoapps.com, *.xiangxiangapps.com
-xjsp = type=http-response,pattern=(?i)^https?://.+?\.(pipi|fuli|xiang(jiao|xiang))apps\.com/(ucp/index|getGlobalData|(/|)vod/reqplay/),script-path=https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/xjsp.js,timeout=60,requires-body=true,argument="{\"xljnuiyivsuvgo_enable\":{{{xiangjiao}}}}"
+xjsp = type=http-response,pattern=(?i)^https?://.+?\.(pipi|fuli|xiang(jiao|xiang))apps\.com/(ucp/index|getGlobalData|(/|)vod/reqplay/),script-path=https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/xjsp.js,timeout=60,requires-body=true,argument="{\"xljnuiyivsuvgo_enable\":{{{香蕉是一种水果}}}}"
 
 # > 小红书
 # hostname = edith.xiaohongshu.com, www.xiaohongshu.com, ci.xiaohongshu.com, rec.xiaohongshu.com, so.xiaohongshu.com, edith.rnote.com, www.rnote.com, ci.rnote.com, so.rnote.com, rec.rnote.com
 # 搜索页
-xiaohongshu = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/(banner|hot)_list,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu2 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/(hint|trending)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu3 = type=http-response,pattern=(?i)^https?://(so|edith)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/notes\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
+xiaohongshu = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/(banner|hot)_list,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu2 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/(hint|trending)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu3 = type=http-response,pattern=(?i)^https?://(so|edith)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/search/notes\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
 # 开屏广告
-xiaohongshu4 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/system_service/config\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu5 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/system_service/splash_config,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
+xiaohongshu4 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/system_service/config\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu5 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/system_service/splash_config,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
 # 详情页,小部件
-xiaohongshu6 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/note/widgets,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
+xiaohongshu6 = type=http-response,pattern=(?i)^https?://edith\.(xiaohongshu|rnote)\.com/api/sns/v\d+/note/widgets,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
 # 图片水印,视频水印
-xiaohongshu7 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/note/(imagefeed|live_photo/save),script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu8 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/(followfeed|homefeed)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu9 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/(v2/note/feed|v3/note/videofeed)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu10 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/(v4/note/videofeed|v10/note/video/save)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
+xiaohongshu7 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/note/(imagefeed|live_photo/save),script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu8 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/v\d+/(followfeed|homefeed)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu9 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/(v2/note/feed|v3/note/videofeed)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu10 = type=http-response,pattern=(?i)^https?://(edith|rec|www)\.(xiaohongshu|rnote)\.com/api/sns/(v4/note/videofeed|v10/note/video/save)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
 # 评论区图片、live图水印，表情包下载
-xiaohongshu11 = type=http-response,pattern=(?i)^https://edith\.(xiaohongshu|rnote)\.com/api/sns/(v5/note/comment/list|v3/note/comment/sub_comments)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
-xiaohongshu12 = type=http-response,pattern=(?i)^https://edith\.(xiaohongshu|rnote)\.com/api/sns/v1/interaction/comment/video/download\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{xiaohongshu}}}}"
+xiaohongshu11 = type=http-response,pattern=(?i)^https://edith\.(xiaohongshu|rnote)\.com/api/sns/(v5/note/comment/list|v3/note/comment/sub_comments)\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
+xiaohongshu12 = type=http-response,pattern=(?i)^https://edith\.(xiaohongshu|rnote)\.com/api/sns/v1/interaction/comment/video/download\?,script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js,timeout=60,requires-body=true,argument="{\"xhs_enable\":{{{小红书}}}}"
 
 # > 小芒
 # hostname = mgesq.api.mgtv.com, *.hitv.com
-xmApp = type=http-response,pattern=(?i)https://mgesq.api.mgtv.com/dsl/index.+,script-path=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/xmApp.js,timeout=60,requires-body=true,argument="{\"xnmh_enable\":{{{xiaomang}}}}"
+xmApp = type=http-response,pattern=(?i)https://mgesq.api.mgtv.com/dsl/index.+,script-path=https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/xmApp.js,timeout=60,requires-body=true,argument="{\"xnmh_enable\":{{{小芒}}}}"
 
 # > 小米商城
 # hostname = api.m.mi.com
-myBlockAds5 = type=http-response,pattern=(?i)^https?://api\.m\.mi\.com/v1/app/start,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"xnmiuhig_enable\":{{{mishop}}}}"
+myBlockAds5 = type=http-response,pattern=(?i)^https?://api\.m\.mi\.com/v1/app/start,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js,timeout=60,requires-body=true,argument="{\"xnmiuhig_enable\":{{{小米商城}}}}"
 
 # > 小兔充充
 # hostname = ad.xiaotucc.com, mapi.xiaotucc.com
-xiaotucc = type=http-response,pattern=(?i)^https?://mapi\.xiaotucc\.com/(mall/main|main_page/index/getActivity),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/xiaotucc.js,timeout=60,requires-body=true,argument="{\"xntuisis_enable\":{{{xiaotuchong}}}}"
+xiaotucc = type=http-response,pattern=(?i)^https?://mapi\.xiaotucc\.com/(mall/main|main_page/index/getActivity),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/xiaotucc.js,timeout=60,requires-body=true,argument="{\"xntuisis_enable\":{{{小兔充充}}}}"
 
 # > 笑容加
 # hostname = myusmile.online, wemallh5.usmile.com, www.myusmile.online
@@ -6195,33 +6195,33 @@ usmile = type=http-response,pattern=(?i)^https?://www\.myusmile\.online/user/pla
 # > 优酷
 # hostname = acs.youku.com, push.m.youku.com, un-acs.youku.com
 # 播放详情页,首页信息流,顶部tab,我的页面,评论区
-cnftp21 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.columbus\.(gateway\.new\.execute|home\.feed|home\.query|uc\.query|ycp\.query),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp21 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.columbus\.(gateway\.new\.execute|home\.feed|home\.query|uc\.query|ycp\.query),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 # 底部tab
-cnftp22 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.haidai\.lantern\.appconfig\.get,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp22 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.haidai\.lantern\.appconfig\.get,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 # 青少年模式弹窗
-cnftp23 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.huluwa\.dispatcher\.youthmode\.config2,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp23 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.huluwa\.dispatcher\.youthmode\.config2,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 # 搜索列表
-cnftp24 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.soku\.yksearch,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp24 = type=http-response,pattern=(?i)^https?://acs\.youku\.com/gw/mtop\.youku\.soku\.yksearch,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 # 热剧弹窗
-cnftp25 = type=http-response,pattern=(?i)^https?://push\.m\.youku\.com/collect-api/get_push_interval_config_wx\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp25 = type=http-response,pattern=(?i)^https?://push\.m\.youku\.com/collect-api/get_push_interval_config_wx\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 # 开屏广告
-cnftp26 = type=http-response,pattern=(?i)^https?://un-acs\.youku\.com/gw/mtop\.youku\.play\.ups\.appinfo\.get,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{youku}}}}"
+cnftp26 = type=http-response,pattern=(?i)^https?://un-acs\.youku\.com/gw/mtop\.youku\.play\.ups\.appinfo\.get,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js,timeout=60,requires-body=true,argument="{\"yzku_enable\":{{{优酷}}}}"
 
 # > 悠洗APP
 # hostname = api.ulife.group
-yx = type=http-response,pattern=(?i)^https?://api\.ulife\.group/market/homeIconDetail/list/v7,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/yx.js,timeout=60,requires-body=true,argument="{\"yzxiapp_enable\":{{{youxi}}}}"
+yx = type=http-response,pattern=(?i)^https?://api\.ulife\.group/market/homeIconDetail/list/v7,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/yx.js,timeout=60,requires-body=true,argument="{\"yzxiapp_enable\":{{{悠洗APP}}}}"
 
 # > YouTube
 # hostname = rr*.googlevideo.com, youtubei.googleapis.com
 # 响应体
-youtube.response = type=http-response,pattern=(?i)^https://youtubei\.googleapis\.com/youtubei/v1/(browse|next|player|search|reel/reel_watch_sequence|guide|account/get_setting|get_watch),script-path=https://raw.githubusercontent.com/Maasea/sgmodule/refs/heads/master/Script/Youtube/youtube.response.js,timeout=60,requires-body=true,binary-body-mode=true,argument="{\"youtube_enable\":{{{youtube}}}}"
+youtube.response = type=http-response,pattern=(?i)^https://youtubei\.googleapis\.com/youtubei/v1/(browse|next|player|search|reel/reel_watch_sequence|guide|account/get_setting|get_watch),script-path=https://raw.githubusercontent.com/Maasea/sgmodule/refs/heads/master/Script/Youtube/youtube.response.js,timeout=60,requires-body=true,binary-body-mode=true,argument="{\"youtube_enable\":{{{YouTube}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ Z ✅ <<<<<<<<<<<<<<
 
 # > 掌上公交
 # hostname = quanguo.mygolbs.com, wx.mygolbs.com
-zhangshanggongjiao = type=http-response,pattern=(?i)^https?://wx\.mygolbs\.com/WxBusServer/ApiData\.do,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhangshanggongjiao.js,timeout=60,requires-body=true,argument="{\"vhuhgsjn_enable\":{{{bus}}}}"
+zhangshanggongjiao = type=http-response,pattern=(?i)^https?://wx\.mygolbs\.com/WxBusServer/ApiData\.do,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhangshanggongjiao.js,timeout=60,requires-body=true,argument="{\"vhuhgsjn_enable\":{{{掌上公交}}}}"
 
 # > 招商证券
 # hostname = marketing.cmschina.com
@@ -6231,30 +6231,30 @@ cmschina = type=http-response,pattern=(?i)^https://marketing\.cmschina\.com/mkt/
 # > 知乎
 # hostname = api.zhihu.com, www.zhihu.com, appcloud2.zhihu.com, m-cloud.zhihu.com, zhuanlan.zhihu.com, link.zhihu.com
 # 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片、精简顶部标签
-zhihu = type=http-response,pattern=(?i)^https://(?:api|page-info)\.zhihu\.com/(?:answers|articles)/v2/\d+,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu2 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/commercial_api/app_float_layer,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu3 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/feed/render/tab/config\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu4 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/(?:moments_v3|topstory/hot-lists/total|topstory/recommend),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu5 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/root/tab,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu6 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/v2/topstory/hot-lists/everyone-seeing\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
+zhihu = type=http-response,pattern=(?i)^https://(?:api|page-info)\.zhihu\.com/(?:answers|articles)/v2/\d+,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu2 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/commercial_api/app_float_layer,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu3 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/feed/render/tab/config\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu4 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/(?:moments_v3|topstory/hot-lists/total|topstory/recommend),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu5 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/root/tab,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu6 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/v2/topstory/hot-lists/everyone-seeing\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
 # 会员页面 - 弹窗、悬浮动图
-zhihu7 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/bazaar/vip_tab/header\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
+zhihu7 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/bazaar/vip_tab/header\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
 # 回答详情页 - 评论区顶部、下一个回答
-zhihu8 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/next-(?:bff|data|render),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu9 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/questions/\d+(?:/answers|/feeds|\?include=),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu10 = type=http-response,pattern=(?i)^https://www\.zhihu\.com/api/v4/(?:articles|answers)/\d+/recommendations?\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
+zhihu8 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/next-(?:bff|data|render),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu9 = type=http-response,pattern=(?i)^https://api\.zhihu\.com/questions/\d+(?:/answers|/feeds|\?include=),script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu10 = type=http-response,pattern=(?i)^https://www\.zhihu\.com/api/v4/(?:articles|answers)/\d+/recommendations?\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
 # 其他 - 服务器推送配置
-zhihu11 = type=http-response,pattern=(?i)^https://appcloud2\.zhihu\.com/v3/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
-zhihu12 = type=http-response,pattern=(?i)^https://m-cloud\.zhihu\.com/api/cloud/config/all\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{zhihu}}}}"
+zhihu11 = type=http-response,pattern=(?i)^https://appcloud2\.zhihu\.com/v3/config,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
+zhihu12 = type=http-response,pattern=(?i)^https://m-cloud\.zhihu\.com/api/cloud/config/all\?,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhihu/zhihu.js,requires-body=true,argument="{\"vihu_enable\":{{{知乎}}}}"
 
 # > 中国国际航空
 # hostname = m.airchina.com.cn
-airchina = type=http-response,pattern=(?i)^https://m\.airchina\.com\.cn/airchina/gateway/v\d(\.\d)*/api/services,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/airchina.js,timeout=60,argument="{\"vsgogojihhks_enable\":{{{airchina}}}}"
+airchina = type=http-response,pattern=(?i)^https://m\.airchina\.com\.cn/airchina/gateway/v\d(\.\d)*/api/services,script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/airchina.js,timeout=60,argument="{\"vsgogojihhks_enable\":{{{中国国际航空}}}}"
 
 # > 转转
 # hostname = app.zhuanzhuan.com
 # “我的”页面去除冗余的模块
-zhuanzhuan = type=http-response,pattern=(?i)^https?://app\.zhuanzhuan\.com/zz/transfer/getmyprofilev3,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhuanzhuan/zhuanzhuan.js,timeout=60,requires-body=true,argument="{\"vrvr_enable\":{{{zhuanzhuan}}}}"
+zhuanzhuan = type=http-response,pattern=(?i)^https?://app\.zhuanzhuan\.com/zz/transfer/getmyprofilev3,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/zhuanzhuan/zhuanzhuan.js,timeout=60,requires-body=true,argument="{\"vrvr_enable\":{{{转转}}}}"
 
 
 # >>>>>>>>>>>>>>> ✅ # ✅ <<<<<<<<<<<<<<
